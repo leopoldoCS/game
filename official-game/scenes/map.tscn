@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dvw37ra4lntb3"]
+
+[ext_resource type="Script" uid="uid://jlcwji87alf1" path="res://scenes/map.gd" id="1_4xfga"]
+
+[node name="Node2D" type="Node2D" unique_id=1655107792]
+script = ExtResource("1_4xfga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62915529]
+position = Vector2(454, 648)
