@@ -3,8 +3,15 @@ extends Area2D
 var col = 0
 var row = 0
 var tile_type = "Normal"
+enum TileState {
+	OCCUPIED,
+	EMPTY,
+	RESERVED
+}
 
-var selectable = true
+var tile_state = TileState.EMPTY
+
+var selectable = null
 
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionShape2D
@@ -25,4 +32,7 @@ func set_selectable(value: bool):
 	if selectable:
 		sprite.modulate = Color(1, 1, 1) # bright
 	else:
-		sprite.modulate = Color(0.5, 0.5, 0.5) # dim
+		sprite.modulate = Color(0.6, 0.6, 0.6) # dim
+		
+func set_selected():
+	sprite.modulate = Color(0.0, 1.0, 0.3) # neon green
