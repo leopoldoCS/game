@@ -4,15 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://bx465na0n1xt6" path="res://my assets/Tile.png" id="2_jy7pm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1oev"]
-size = Vector2(60, 60)
+size = Vector2(80, 80)
 
 [node name="Tile" type="Area2D" unique_id=1089926183]
 script = ExtResource("1_ywnoi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=13213692]
-position = Vector2(7.1525574e-07, -4.053116e-06)
-scale = Vector2(0.11999998, 0.11999998)
+position = Vector2(-0.031249924, -0.031249924)
+scale = Vector2(0.159875, 0.159875)
 texture = ExtResource("2_jy7pm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=864012851]
+position = Vector2(6.018531e-36, -6.018531e-36)
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_v1oev")
+metadata/_edit_lock_ = true

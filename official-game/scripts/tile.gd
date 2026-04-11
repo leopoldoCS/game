@@ -29,6 +29,9 @@ signal tile_clicked(tile)
 func set_selectable(value: bool):
 	selectable = value
 	
+	if (tile_state == TileState.RESERVED || tile_state == TileState.OCCUPIED):
+		return;
+	
 	if selectable:
 		sprite.modulate = Color(1, 1, 1) # bright
 	else:
@@ -36,3 +39,9 @@ func set_selectable(value: bool):
 		
 func set_selected():
 	sprite.modulate = Color(0.0, 1.0, 0.3) # neon green
+
+func set_tile_state(new_state):
+	tile_state = new_state
+	
+	if new_state == TileState.OCCUPIED:
+		sprite.modulate = Color(1.0, 0.0, 0.3)

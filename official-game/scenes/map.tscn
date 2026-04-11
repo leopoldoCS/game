@@ -6,4 +6,4 @@
 script = ExtResource("1_4xfga")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62915529]
-position = Vector2(454, 648)
+position = Vector2(498, 800)
