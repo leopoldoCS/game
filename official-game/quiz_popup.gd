@@ -13,54 +13,43 @@ var questions = [
 	{"question": "What is 50 - 25?", "answers": ["30", "15", "20", "25"], "correct": 3},
 ]
 
-var current = 0
 signal answered(was_correct)
 
-@onready var vbox = $ColorRect/PanelContainer/VBoxContainer
-@onready var panel = $ColorRect/PanelContainer
-@onready var feedback = $ColorRect/PanelContainer/FeedbackLabel
-@onready var question_label = $ColorRect/PanelContainer/VBoxContainer/QuestionHeader/QuestionLabel
-@onready var grid = $ColorRect/PanelContainer/VBoxContainer/GridContainer
+@onready var vbox = $PanelContainer/VBoxContainer
+@onready var panel = $PanelContainer
+@onready var feedback = $FeedbackLabel
+@onready var question_label = $PanelContainer/VBoxContainer/QuestionHeader/QuestionLabel
+@onready var grid = $PanelContainer/VBoxContainer/GridContainer
 
 func _ready():
 	feedback.visible = false
-	load_question()
-	for i in 4:
-		get_button(i).pressed.connect(_on_answer.bind(i))
-
-func load_question():
-	var q = questions[current % questions.size()]
+	var q = questions.pick_random()
 	question_label.text = q["question"]
 	for i in 4:
 		get_button(i).text = q["answers"][i]
-		get_button(i).disabled = false
-	vbox.visible = true
-	feedback.visible = false
+		get_button(i).pressed.connect(_on_answer.bind(i, q["correct"]))
 
 func get_button(i):
 	var names = ["ButtonA", "ButtonB", "ButtonC", "ButtonD"]
 	return grid.get_node(names[i])
 
-func _on_answer(i):
-	var q = questions[current % questions.size()]
-	var correct = (i == q["correct"])
-
+func _on_answer(picked, correct):
 	for j in 4:
 		get_button(j).disabled = true
+
+	var was_correct = (picked == correct)
 
 	vbox.visible = false
 	feedback.visible = true
 
-	if correct:
+	if was_correct:
 		feedback.text = "BOOST!"
 		panel.get_theme_stylebox("panel").bg_color = Color("#2ecc71")
 	else:
 		feedback.text = "SPINOUT!"
 		panel.get_theme_stylebox("panel").bg_color = Color("#e74c3c")
 
-	emit_signal("answered", correct)
-
 	await get_tree().create_timer(1.5).timeout
 	panel.get_theme_stylebox("panel").bg_color = Color("#d9d9d9")
-	current += 1
-	load_question()
+	emit_signal("answered", was_correct)
+	queue_free()

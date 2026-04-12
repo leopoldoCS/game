@@ -1,5 +1,10 @@
 extends Node2D
+#Added by Leo for LEADERBOARD
+#---------------------------------------------------------
 
+var player_texture = preload("res://my assets/Monster.png")
+var npc_texture = preload("res://my assets/Monster.png")
+#---------------------------------------------------------
 var TileScene = preload("res://scenes/tile.tscn")
 var PlayerScene = preload("res://scenes/player.tscn")
 var NPCScene = preload("res://scenes/npc.tscn")
@@ -41,13 +46,21 @@ var npc2 = NPCScene.instantiate()
 func _on_tile_clicked(tile):
 	if player_state != PlayerState.CHOOSING:
 		return
-	
-	print(current_row, current_col)
-	print("MAP received:", tile.row, tile.col)
+
 	selected_tile = tile
 	player_state = PlayerState.ANSWERING
 	tile.set_selected()
 	tile.set_tile_state(tile.TileState.RESERVED)
+
+	var quiz = preload("res://QuizPopup.tscn").instantiate()
+	add_child(quiz)
+	quiz.answered.connect(_on_quiz_answered)
+
+func _on_quiz_answered(was_correct):
+	if was_correct:
+		start_movement_timer()
+	else:
+		start_wrong_timer()
 
 func get_valid_tiles(row, col):
 	var valid_tiles = []
@@ -96,6 +109,7 @@ func clear_map():
 			
 
 func _ready():
+
 	var rows = 10
 	var cols = 4
 	var tile_size = 80
@@ -145,6 +159,8 @@ func _ready():
 	
 	npc_loop()
 	npc2_loop()
+	#ADDED TO CALL LEADERBOARD
+	update_leaderboard()
 
 
 func move_tile(row, col):
@@ -158,24 +174,10 @@ func move_tile(row, col):
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
 	player.position = tiles[current_row][current_col].position
+	#ADDED TO CALL LEADERBOARD
+	update_leaderboard()
 	
-func _input(event):
-	#if event is InputEventKey and event.pressed:
-		#if event.keycode == KEY_N:
-			#print("heloon")
-			#npc_choose_move()
-			#npc_start_move()
-			
-	if player_state != PlayerState.ANSWERING:
-		return
 
-	if event.is_action_pressed("ui_accept"):  # like Enter
-		print("Correct!")
-		start_movement_timer()
-
-	if event.is_action_pressed("ui_cancel"):  # like Esc
-		print("Wrong!")
-		start_wrong_timer()
 	
 func start_movement_timer():
 	player_state = PlayerState.MOVING
@@ -189,9 +191,11 @@ func start_movement_timer():
 	selected_tile = null
 
 func start_wrong_timer():
-	player_state = PlayerState.MOVING
-	await get_tree().create_timer(1.0).timeout
-	player_state = PlayerState.ANSWERING
+	selected_tile.set_tile_state(selected_tile.TileState.EMPTY)
+	selected_tile.set_selectable(false)
+	selected_tile = null
+	player_state = PlayerState.CHOOSING
+	find_tiles(current_row, current_col)
 
 func npc_choose_move():
 	var valid_moves = get_valid_tiles(current_npc_row, current_npc_col)
@@ -242,6 +246,8 @@ func npc_move_to_tile(row, col):
 	
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 	npc.position = tiles[current_npc_row][current_npc_col].position
+	#ADDED TO CALL LEADERBOARD
+	update_leaderboard()
 
 func npc2_move_to_tile(row, col):
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.EMPTY)
@@ -252,6 +258,8 @@ func npc2_move_to_tile(row, col):
 	
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
+	#ADDED TO CALL LEADERBOARD
+	update_leaderboard()
 	
 func npc_loop():
 	while !npc_finished:
@@ -262,3 +270,39 @@ func npc2_loop():
 	while !npc2_finished:
 		npc2_choose_move()
 		await npc2_start_move()
+
+
+#FUNCTION ADDED FOR LEADERBOARD BY LEO
+#------------------------------------------
+func update_leaderboard():
+	var standings = [
+		{"name": "YOU", "row": current_row, "pic": player_texture},
+		{"name": "NPC 1", "row": current_npc_row, "pic": npc_texture},
+		{"name": "NPC 2", "row": current_npc2_row, "pic": npc_texture},
+	]
+	standings.sort_custom(func(a, b): return a["row"] > b["row"])
+
+	var n1 = find_child("Name1", true, false)
+	var n2 = find_child("Name2", true, false)
+	var n3 = find_child("Name3", true, false)
+	var p1 = find_child("Pic1", true, false)
+	var p2 = find_child("Pic2", true, false)
+	var p3 = find_child("Pic3", true, false)
+	var r1 = find_child("Rank1", true, false)
+	var r2 = find_child("Rank2", true, false)
+	var r3 = find_child("Rank3", true, false)
+
+	if n1 == null:
+		return
+
+	r1.text = "1st"
+	r2.text = "2nd"
+	r3.text = "3rd"
+	n1.text = standings[0]["name"]
+	n2.text = standings[1]["name"]
+	n3.text = standings[2]["name"]
+	p1.texture = standings[0]["pic"]
+	p2.texture = standings[1]["pic"]
+	p3.texture = standings[2]["pic"]
+
+	#------------------------------------------
