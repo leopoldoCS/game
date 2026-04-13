@@ -13,6 +13,14 @@ var questions = [
 	{"question": "What is 50 - 25?", "answers": ["30", "15", "20", "25"], "correct": 3},
 ]
 
+enum TileType {
+	NORMAL,
+	FREEZE,
+	ANSWER_HELP
+}
+
+var tile_type
+
 signal answered(was_correct)
 
 @onready var vbox = $PanelContainer/VBoxContainer
@@ -42,9 +50,15 @@ func _on_answer(picked, correct):
 	vbox.visible = false
 	feedback.visible = true
 
-	if was_correct:
-		feedback.text = "BOOST!"
+	if was_correct && tile_type == TileType.NORMAL:
+		feedback.text = "CORRECT!"
 		panel.get_theme_stylebox("panel").bg_color = Color("#2ecc71")
+	elif was_correct && tile_type == TileType.FREEZE:
+		feedback.text = "Freeze!"
+		panel.get_theme_stylebox("panel").bg_color = Color("82ccd3ff")
+	elif was_correct && tile_type == TileType.ANSWER_HELP:
+		feedback.text = "HELP!"
+		panel.get_theme_stylebox("panel").bg_color = Color("f6f55cff")
 	else:
 		feedback.text = "SPINOUT!"
 		panel.get_theme_stylebox("panel").bg_color = Color("#e74c3c")

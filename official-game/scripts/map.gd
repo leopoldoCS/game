@@ -30,14 +30,13 @@ enum PlayerState {
 	ANSWERING,
 	MOVING
 }
-enum NPCState {
-	CHOOSING,
-	MOVING
+enum TileType {
+	NORMAL,
+	FREEZE,
+	ANSWER_HELP
 }
 
 var player_state = PlayerState.CHOOSING
-var npc_state = NPCState.CHOOSING
-var npc2_state = NPCState.CHOOSING
 
 var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
@@ -51,11 +50,18 @@ func _on_tile_clicked(tile):
 	player_state = PlayerState.ANSWERING
 	tile.set_selected()
 	tile.set_tile_state(tile.TileState.RESERVED)
-
+	var type = tile.tile_type
 	var quiz = preload("res://QuizPopup.tscn").instantiate()
 	add_child(quiz)
+	quiz.tile_type = type
+	
 	quiz.answered.connect(_on_quiz_answered)
-
+	
+func get_random_question_type():
+	var values = TileType.values()
+	values.append(0)
+	return values.pick_random()
+	
 func _on_quiz_answered(was_correct):
 	if was_correct:
 		start_movement_timer()
@@ -127,6 +133,8 @@ func _ready():
 			var tile = TileScene.instantiate()
 			tile.row = row
 			tile.col = col
+			tile.tile_type = get_random_question_type()
+			
 			
 			var x = start_x + col * (tile_size + spacing)
 			var y = start_y - row * (tile_size + spacing)
@@ -138,6 +146,7 @@ func _ready():
 			tiles[row].append(tile)
 			
 			add_child(tile)
+			tile.update_visual()
 
 	
 	var start = tiles[0][0]
@@ -170,6 +179,8 @@ func move_tile(row, col):
 	current_row = row
 	var moved_to_tile = tiles[row][col]
 	moved_to_tile.set_tile_state(moved_to_tile.TileState.OCCUPIED)
+	moved_to_tile.tile_type = TileType.NORMAL
+	moved_to_tile.update_visual()
 	find_tiles(current_row, current_col)
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
@@ -182,11 +193,13 @@ func move_tile(row, col):
 func start_movement_timer():
 	player_state = PlayerState.MOVING
 	await get_tree().create_timer(1).timeout
+	tiles[current_row][current_col].tile_type = TileType.NORMAL
+	tiles[current_row][current_col].update_visual()
 	var row = selected_tile.row
 	var col = selected_tile.col
 	move_tile(row, col)
 	
-	tiles[row][col].set_tile_state(tiles[row][col].TileState.OCCUPIED)
+	tiles[row][col].set_tile_state(tiles[row][col].TileState.OCCUPIED)	
 	
 	selected_tile = null
 
@@ -246,6 +259,8 @@ func npc_move_to_tile(row, col):
 	
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 	npc.position = tiles[current_npc_row][current_npc_col].position
+	tiles[current_npc_row][current_npc_col].tile_type = TileType.NORMAL
+	tiles[current_npc_row][current_npc_col].update_visual()
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 
@@ -258,6 +273,8 @@ func npc2_move_to_tile(row, col):
 	
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
+	tiles[current_npc2_row][current_npc2_col].tile_type = TileType.NORMAL
+	tiles[current_npc2_row][current_npc2_col].update_visual()
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	

@@ -2,12 +2,17 @@
 
 [ext_resource type="Script" uid="uid://rxeam0t4usvg" path="res://scripts/tile.gd" id="1_ywnoi"]
 [ext_resource type="Texture2D" uid="uid://bx465na0n1xt6" path="res://my assets/Tile.png" id="2_jy7pm"]
+[ext_resource type="Texture2D" uid="uid://jtl0modjh26f" path="res://my assets/Blue tile.png" id="3_q7utx"]
+[ext_resource type="Texture2D" uid="uid://dpj4qbetanbr8" path="res://my assets/Yellow tile.png" id="4_6p3j2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1oev"]
 size = Vector2(80, 80)
 
 [node name="Tile" type="Area2D" unique_id=1089926183]
 script = ExtResource("1_ywnoi")
+normal_texture = ExtResource("2_jy7pm")
+freeze_texture = ExtResource("3_q7utx")
+answer_help_texture = ExtResource("4_6p3j2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=13213692]
 position = Vector2(-0.031249924, -0.031249924)

@@ -3,6 +3,12 @@ extends Area2D
 var col = 0
 var row = 0
 var tile_type = "Normal"
+
+enum TileType {
+	NORMAL,
+	FREEZE,
+	ANSWER_HELP
+}
 enum TileState {
 	OCCUPIED,
 	EMPTY,
@@ -13,8 +19,21 @@ var tile_state = TileState.EMPTY
 
 var selectable = null
 
+@export var normal_texture : Texture2D
+@export var freeze_texture : Texture2D
+@export var answer_help_texture : Texture2D
+
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionShape2D
+
+func update_visual():
+	match tile_type:
+		TileType.NORMAL:
+			$Sprite2D.texture = normal_texture
+		TileType.FREEZE:
+			$Sprite2D.texture = freeze_texture
+		TileType.ANSWER_HELP:
+			$Sprite2D.texture = answer_help_texture
 
 func _input_event(viewport, event, shape_idx):
 	if not selectable:
@@ -36,7 +55,7 @@ func set_selectable(value: bool):
 		sprite.modulate = Color(1, 1, 1) # bright
 	else:
 		sprite.modulate = Color(0.6, 0.6, 0.6) # dim
-		
+
 func set_selected():
 	sprite.modulate = Color(0.0, 1.0, 0.3) # neon green
 
