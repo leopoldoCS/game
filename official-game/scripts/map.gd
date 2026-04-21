@@ -1,7 +1,6 @@
 extends Node2D
 #Added by Leo for LEADERBOARD
 #---------------------------------------------------------
-
 var player_texture = preload("res://my assets/Monster.png")
 var npc_texture = preload("res://my assets/Monster.png")
 #---------------------------------------------------------
@@ -24,6 +23,9 @@ var npc_finished = false
 var npc2_finished = false
 
 var tiles = []
+
+#For Leaderboard Order Finish
+var finish_order = []
 
 enum PlayerState {
 	CHOOSING,
@@ -185,6 +187,8 @@ func move_tile(row, col):
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
 	player.position = tiles[current_row][current_col].position
+	if current_row == 9 and "YOU" not in finish_order:
+		finish_order.append("YOU")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	
@@ -261,6 +265,8 @@ func npc_move_to_tile(row, col):
 	npc.position = tiles[current_npc_row][current_npc_col].position
 	tiles[current_npc_row][current_npc_col].tile_type = TileType.NORMAL
 	tiles[current_npc_row][current_npc_col].update_visual()
+	if current_npc_row == 9 and "NPC 1" not in finish_order:
+		finish_order.append("NPC 1")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 
@@ -275,6 +281,8 @@ func npc2_move_to_tile(row, col):
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
 	tiles[current_npc2_row][current_npc2_col].tile_type = TileType.NORMAL
 	tiles[current_npc2_row][current_npc2_col].update_visual()
+	if current_npc2_row == 9 and "NPC 2" not in finish_order:
+		finish_order.append("NPC 2")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	
@@ -297,29 +305,28 @@ func update_leaderboard():
 		{"name": "NPC 1", "row": current_npc_row, "pic": npc_texture},
 		{"name": "NPC 2", "row": current_npc2_row, "pic": npc_texture},
 	]
-	standings.sort_custom(func(a, b): return a["row"] > b["row"])
+	standings.sort_custom(func(a, b):
+		if a["row"] != b["row"]:
+			return a["row"] > b["row"]
+		var a_pos = finish_order.find(a["name"])
+		var b_pos = finish_order.find(b["name"])
+		if a_pos == -1: a_pos = 999
+		if b_pos == -1: b_pos = 999
+		return a_pos < b_pos
+	)
 
 	var n1 = find_child("Name1", true, false)
-	var n2 = find_child("Name2", true, false)
-	var n3 = find_child("Name3", true, false)
-	var p1 = find_child("Pic1", true, false)
-	var p2 = find_child("Pic2", true, false)
-	var p3 = find_child("Pic3", true, false)
-	var r1 = find_child("Rank1", true, false)
-	var r2 = find_child("Rank2", true, false)
-	var r3 = find_child("Rank3", true, false)
-
 	if n1 == null:
 		return
 
-	r1.text = "1st"
-	r2.text = "2nd"
-	r3.text = "3rd"
+	find_child("Rank1", true, false).text = "1st"
+	find_child("Rank2", true, false).text = "2nd"
+	find_child("Rank3", true, false).text = "3rd"
 	n1.text = standings[0]["name"]
-	n2.text = standings[1]["name"]
-	n3.text = standings[2]["name"]
-	p1.texture = standings[0]["pic"]
-	p2.texture = standings[1]["pic"]
-	p3.texture = standings[2]["pic"]
+	find_child("Name2", true, false).text = standings[1]["name"]
+	find_child("Name3", true, false).text = standings[2]["name"]
+	find_child("Pic1", true, false).texture = standings[0]["pic"]
+	find_child("Pic2", true, false).texture = standings[1]["pic"]
+	find_child("Pic3", true, false).texture = standings[2]["pic"]
 
 	#------------------------------------------
