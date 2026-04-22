@@ -42,10 +42,12 @@ custom_minimum_size = Vector2(400, 280)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -613.0
-offset_right = -2.0
-offset_bottom = 291.0
+offset_left = -1401.0
+offset_top = 274.0
+offset_right = -787.0
+offset_bottom = 565.0
 grow_horizontal = 0
+scale = Vector2(0.68851185, 0.68851185)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0e48y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=940242874]
@@ -105,10 +107,11 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
 
 [node name="FeedbackLabel" type="Label" parent="." unique_id=1233787825]
-offset_left = 911.0
-offset_top = 99.0
-offset_right = 1273.0
-offset_bottom = 236.0
+offset_left = 48.0
+offset_top = 321.0
+offset_right = 531.5564
+offset_bottom = 504.00342
+scale = Vector2(0.68851185, 0.68851185)
 theme_override_font_sizes/font_size = 100
 text = "BOOST!"
 horizontal_alignment = 1

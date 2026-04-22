@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="1_3vyb7"]
 
 [node name="player" type="Node2D" unique_id=1051562403]
+scale = Vector2(2.000001, 2.000001)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=373091131]
 position = Vector2(1, 1.0000005)

@@ -22,6 +22,10 @@ var selected_npc2_tile = null
 var npc_finished = false
 var npc2_finished = false
 
+var camera_offset_y = 320
+var rows = 11
+var cols = 4
+
 var tiles = []
 
 #For Leaderboard Order Finish
@@ -44,6 +48,11 @@ var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
 var npc2 = NPCScene.instantiate()
 
+@onready var camera = $Camera2D
+
+func _process(delta):
+	camera.position.y = lerp(camera.position.y, player.position.y - camera_offset_y, 0.01)
+	
 func _on_tile_clicked(tile):
 	if player_state != PlayerState.CHOOSING:
 		return
@@ -80,9 +89,9 @@ func get_valid_tiles(row, col):
 	
 	if next_row >= tiles.size():
 		print("Reached end of board")
-		if (current_npc_row == 9):
+		if (current_npc_row == rows-1):
 			npc_finished = true
-		if (current_npc2_row == 9):
+		if (current_npc2_row == rows-1):
 			npc2_finished = true
 		return valid_tiles
 	
@@ -118,14 +127,13 @@ func clear_map():
 
 func _ready():
 
-	var rows = 10
-	var cols = 4
-	var tile_size = 80
+
+	var tile_size = 160
 	var spacing = 0
 	
 	
-	var start_x = 498
-	var start_y = 760
+	var start_x = 510
+	var start_y = 720
 	
 
 	
