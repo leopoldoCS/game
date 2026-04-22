@@ -1,6 +1,7 @@
 extends Node2D
 #Added by Leo for LEADERBOARD
 #---------------------------------------------------------
+@export var tutorial_mode := false
 
 var player_texture = preload("res://my assets/Monster.png")
 var npc_texture = preload("res://my assets/Monster.png")
@@ -37,6 +38,11 @@ enum TileType {
 }
 
 var player_state = PlayerState.CHOOSING
+var tutorial_step := 0
+var tutorial_panel: PanelContainer
+var tutorial_label: Label
+var tutorial_button: Button
+var tutorial_finished := false
 
 var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
@@ -44,6 +50,8 @@ var npc2 = NPCScene.instantiate()
 
 func _on_tile_clicked(tile):
 	if player_state != PlayerState.CHOOSING:
+		return
+	if tutorial_mode && tutorial_step < 1:
 		return
 
 	selected_tile = tile
@@ -56,6 +64,8 @@ func _on_tile_clicked(tile):
 	quiz.tile_type = type
 	
 	quiz.answered.connect(_on_quiz_answered)
+	if tutorial_mode && tutorial_step == 1:
+		advance_tutorial_step()
 	
 func get_random_question_type():
 	var values = TileType.values()
@@ -63,6 +73,13 @@ func get_random_question_type():
 	return values.pick_random()
 	
 func _on_quiz_answered(was_correct):
+	if tutorial_mode && tutorial_step == 2:
+		if was_correct:
+			show_tutorial_message("Nice. A correct answer lets you move onto the tile you picked. Watch your monster move forward.")
+			advance_tutorial_step()
+		else:
+			show_tutorial_message("A wrong answer means you stay put. Click a highlighted tile and try again.")
+			tutorial_button.hide()
 	if was_correct:
 		start_movement_timer()
 	else:
@@ -166,10 +183,16 @@ func _ready():
 	
 	find_tiles(current_row, current_col)
 	
-	npc_loop()
-	npc2_loop()
+	if !tutorial_mode:
+		npc_loop()
+		npc2_loop()
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
+	if tutorial_mode:
+		setup_tutorial_ui()
+		show_tutorial_message("Welcome to the tutorial. Your goal is to race up the board by clicking a highlighted tile.")
+		tutorial_button.text = "Show Me"
+		tutorial_button.show()
 
 
 func move_tile(row, col):
@@ -187,6 +210,9 @@ func move_tile(row, col):
 	player.position = tiles[current_row][current_col].position
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
+	if tutorial_mode && tutorial_step == 3:
+		tutorial_button.text = "Next"
+		tutorial_button.show()
 	
 
 	
@@ -209,6 +235,79 @@ func start_wrong_timer():
 	selected_tile = null
 	player_state = PlayerState.CHOOSING
 	find_tiles(current_row, current_col)
+
+func setup_tutorial_ui():
+	var ui_layer = find_child("UI", true, false)
+	if ui_layer == null:
+		return
+
+	tutorial_panel = PanelContainer.new()
+	tutorial_panel.name = "TutorialPanel"
+	tutorial_panel.custom_minimum_size = Vector2(520, 180)
+	tutorial_panel.position = Vector2(840, 540)
+	tutorial_panel.size = Vector2(520, 180)
+	tutorial_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.06, 0.08, 0.12, 0.94)
+	style.border_color = Color(0.94, 0.77, 0.18, 1.0)
+	style.border_width_left = 3
+	style.border_width_top = 3
+	style.border_width_right = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 18
+	style.corner_radius_top_right = 18
+	style.corner_radius_bottom_left = 18
+	style.corner_radius_bottom_right = 18
+	tutorial_panel.add_theme_stylebox_override("panel", style)
+
+	var container = VBoxContainer.new()
+	container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	container.offset_left = 18
+	container.offset_top = 18
+	container.offset_right = -18
+	container.offset_bottom = -18
+	container.add_theme_constant_override("separation", 12)
+	tutorial_panel.add_child(container)
+
+	tutorial_label = Label.new()
+	tutorial_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tutorial_label.custom_minimum_size = Vector2(0, 110)
+	tutorial_label.add_theme_font_size_override("font_size", 26)
+	container.add_child(tutorial_label)
+
+	tutorial_button = Button.new()
+	tutorial_button.custom_minimum_size = Vector2(0, 46)
+	tutorial_button.text = "Next"
+	tutorial_button.add_theme_font_size_override("font_size", 22)
+	tutorial_button.pressed.connect(_on_tutorial_button_pressed)
+	container.add_child(tutorial_button)
+
+	ui_layer.add_child(tutorial_panel)
+
+func show_tutorial_message(message: String):
+	if tutorial_panel == null:
+		return
+	tutorial_panel.show()
+	tutorial_label.text = message
+
+func _on_tutorial_button_pressed():
+	match tutorial_step:
+		0:
+			show_tutorial_message("Highlighted tiles are your valid moves. Click one of them to open a quiz question.")
+			tutorial_button.hide()
+			advance_tutorial_step()
+		3:
+			show_tutorial_message("NPCs race upward too. In the full game they keep moving, so answer quickly to stay ahead.")
+			tutorial_button.text = "Finish Tutorial"
+			tutorial_button.show()
+			advance_tutorial_step()
+		4:
+			tutorial_finished = true
+			get_tree().change_scene_to_file("res://scenes/map.tscn")
+
+func advance_tutorial_step():
+	tutorial_step += 1
 
 func npc_choose_move():
 	var valid_moves = get_valid_tiles(current_npc_row, current_npc_col)

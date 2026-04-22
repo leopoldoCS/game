@@ -35,7 +35,7 @@ func update_visual():
 		TileType.ANSWER_HELP:
 			$Sprite2D.texture = answer_help_texture
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if not selectable:
 		return
 
