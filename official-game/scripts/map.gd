@@ -1,5 +1,5 @@
 extends Node2D
-#Added by Leo for LEADERBOARD
+#Added for LEADERBOARD
 #---------------------------------------------------------
 var player_texture = preload("res://my assets/Monster.png")
 var npc_texture = preload("res://my assets/Monster.png")
@@ -28,6 +28,9 @@ var cols = 4
 
 var tiles = []
 
+#countdown variable
+var race_started = false
+
 #For Leaderboard Order Finish
 var finish_order = []
 
@@ -54,6 +57,10 @@ func _process(delta):
 	camera.position.y = lerp(camera.position.y, player.position.y - camera_offset_y, 0.01)
 	
 func _on_tile_clicked(tile):
+	if not race_started:
+		return
+	if player_state != PlayerState.CHOOSING:
+		return
 	if player_state != PlayerState.CHOOSING:
 		return
 
@@ -176,10 +183,9 @@ func _ready():
 	
 	find_tiles(current_row, current_col)
 	
-	npc_loop()
-	npc2_loop()
-	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
+	create_finish_line()
+	start_countdown()
 
 
 func move_tile(row, col):
@@ -305,7 +311,7 @@ func npc2_loop():
 		await npc2_start_move()
 
 
-#FUNCTION ADDED FOR LEADERBOARD BY LEO
+#FUNCTION ADDED FOR LEADERBOARD 
 #------------------------------------------
 func update_leaderboard():
 	var standings = [
@@ -338,3 +344,61 @@ func update_leaderboard():
 	find_child("Pic3", true, false).texture = standings[2]["pic"]
 
 	#------------------------------------------
+	
+	#Countdown function
+func start_countdown():
+	var countdown_label = find_child("Countdown", true, false)
+	if countdown_label == null:
+		race_started = true
+		return
+
+	var sfx = AudioStreamPlayer.new()
+	add_child(sfx)
+
+	countdown_label.visible = true
+
+	countdown_label.text = "3"
+	sfx.stream = load("res://Assets/3.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "2"
+	sfx.stream = load("res://Assets/2.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "1"
+	sfx.stream = load("res://Assets/1.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "GO!"
+	sfx.stream = load("res://Assets/go.ogg")
+	sfx.play()
+	await get_tree().create_timer(0.5).timeout
+
+	countdown_label.visible = false
+	sfx.queue_free()
+	race_started = true
+	npc_loop()
+	npc2_loop()
+
+#Create Finish Line
+func create_finish_line():
+	var tile_size = 160
+	var last_row_y = tiles[rows - 1][0].position.y
+
+	var line = ColorRect.new()
+	line.color = Color("#e74c3c")
+	line.size = Vector2(cols * tile_size, 150)
+	line.position = Vector2(tiles[0][0].position.x -80, last_row_y -230)
+	add_child(line)
+
+	var label = Label.new()
+	label.text = "FINISH"
+	label.add_theme_font_size_override("font_size", 36)
+	label.add_theme_color_override("font_color", Color("000000ff"))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.position = Vector2(tiles[0][0].position.x - 85, last_row_y - 210)
+	label.size = Vector2(cols * tile_size, 45)
+	add_child(label)
