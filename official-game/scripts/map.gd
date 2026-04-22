@@ -200,9 +200,6 @@ func _ready():
 	
 	find_tiles(current_row, current_col)
 	
-	if !tutorial_mode:
-		npc_loop()
-		npc2_loop()
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	if tutorial_mode:
@@ -357,18 +354,24 @@ func npc2_choose_move():
 func npc_start_move():
 	if selected_npc_tile == null:
 		return
-	
+
+	var move_tile_target = selected_npc_tile
 	await get_tree().create_timer(1).timeout
-	npc_move_to_tile(selected_npc_tile.row, selected_npc_tile.col)
+	if move_tile_target == null:
+		return
+	npc_move_to_tile(move_tile_target.row, move_tile_target.col)
 	selected_npc_tile = null
 	find_tiles(current_row, current_col)
 
 func npc2_start_move():
 	if selected_npc2_tile == null:
 		return
-	
+
+	var move_tile_target = selected_npc2_tile
 	await get_tree().create_timer(2).timeout
-	npc2_move_to_tile(selected_npc2_tile.row, selected_npc2_tile.col)
+	if move_tile_target == null:
+		return
+	npc2_move_to_tile(move_tile_target.row, move_tile_target.col)
 	selected_npc2_tile = null
 	find_tiles(current_row, current_col)
 
