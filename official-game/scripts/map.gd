@@ -201,6 +201,8 @@ func move_tile(row, col):
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
 	player.position = tiles[current_row][current_col].position
+	if current_row == rows - 1:
+		player.position.y -= 160
 	if current_row == 9 and "YOU" not in finish_order:
 		finish_order.append("YOU")
 	#ADDED TO CALL LEADERBOARD
@@ -277,6 +279,8 @@ func npc_move_to_tile(row, col):
 	
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 	npc.position = tiles[current_npc_row][current_npc_col].position
+	if current_npc_row == rows - 1:
+		npc.position.y -= 160
 	tiles[current_npc_row][current_npc_col].tile_type = TileType.NORMAL
 	tiles[current_npc_row][current_npc_col].update_visual()
 	if current_npc_row == 9 and "NPC 1" not in finish_order:
@@ -293,6 +297,8 @@ func npc2_move_to_tile(row, col):
 	
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
+	if current_npc2_row == rows - 1:
+		npc2.position.y -= 160
 	tiles[current_npc2_row][current_npc2_col].tile_type = TileType.NORMAL
 	tiles[current_npc2_row][current_npc2_col].update_visual()
 	if current_npc2_row == 9 and "NPC 2" not in finish_order:
@@ -401,4 +407,8 @@ func create_finish_line():
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.position = Vector2(tiles[0][0].position.x - 85, last_row_y - 210)
 	label.size = Vector2(cols * tile_size, 45)
+	
+	line.z_index = -1
+	label.z_index = -1
+	
 	add_child(label)
