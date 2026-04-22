@@ -115,5 +115,12 @@ func _on_answer(picked, correct):
 
 	await get_tree().create_timer(1.5).timeout
 	panel.get_theme_stylebox("panel").bg_color = Color("#d9d9d9")
-	emit_signal("answered", was_correct)
-	queue_free()
+
+	if was_correct:
+		emit_signal("answered", true)
+		queue_free()
+	else:
+		vbox.visible = true
+		feedback.visible = false
+		for j in 4:
+			get_button(j).disabled = false

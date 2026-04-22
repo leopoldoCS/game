@@ -9,6 +9,16 @@ bg_color = Color(0.2, 0.2, 0.2, 1)
 [node name="Node2D" type="Node2D" unique_id=1655107792]
 script = ExtResource("1_4xfga")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1902767470]
+offset_top = -868.0
+offset_right = 1399.0
+offset_bottom = 801.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=422665428]
+position = Vector2(700, 402)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62915529]
 position = Vector2(498, 800)
 
@@ -16,8 +26,12 @@ position = Vector2(498, 800)
 
 [node name="Leaderboard" type="PanelContainer" parent="UI" unique_id=1706093794]
 custom_minimum_size = Vector2(450, 250)
-offset_right = 40.0
+anchors_preset = -1
+anchor_right = 0.289
+anchor_bottom = 0.2625
+offset_right = 45.399994
 offset_bottom = 40.0
+scale = Vector2(0.9606245, 1.0247719)
 theme_override_styles/panel = SubResource("StyleBoxFlat_4xfga")
 metadata/_edit_use_anchors_ = true
 
@@ -128,3 +142,19 @@ text = "NPC 2"
 
 [node name="HSeparator" type="HSeparator" parent="UI/Leaderboard/VBoxContainer" unique_id=1865914516]
 layout_mode = 2
+
+[node name="Countdown" type="Label" parent="UI" unique_id=614236960]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -49.5
+offset_right = 20.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+horizontal_alignment = 1
+vertical_alignment = 1

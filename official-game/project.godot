@@ -21,6 +21,10 @@ window/size/viewport_width=1400
 window/size/viewport_height=800
 window/stretch/mode="canvas_items"
 
+[input_devices]
+
+pointing/main_scene="uid://dlug4273f686c"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -1,8 +1,7 @@
 extends Node2D
-#Added by Leo for LEADERBOARD
+#Added for LEADERBOARD
 #---------------------------------------------------------
 @export var tutorial_mode := false
-
 var player_texture = preload("res://my assets/Monster.png")
 var npc_texture = preload("res://my assets/Monster.png")
 #---------------------------------------------------------
@@ -24,7 +23,17 @@ var selected_npc2_tile = null
 var npc_finished = false
 var npc2_finished = false
 
+var camera_offset_y = 320
+var rows = 11
+var cols = 4
+
 var tiles = []
+
+#countdown variable
+var race_started = false
+
+#For Leaderboard Order Finish
+var finish_order = []
 
 enum PlayerState {
 	CHOOSING,
@@ -48,7 +57,16 @@ var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
 var npc2 = NPCScene.instantiate()
 
+@onready var camera = $Camera2D
+
+func _process(delta):
+	camera.position.y = lerp(camera.position.y, player.position.y - camera_offset_y, 0.01)
+	
 func _on_tile_clicked(tile):
+	if not race_started:
+		return
+	if player_state != PlayerState.CHOOSING:
+		return
 	if player_state != PlayerState.CHOOSING:
 		return
 	if tutorial_mode && tutorial_step < 1:
@@ -95,9 +113,9 @@ func get_valid_tiles(row, col):
 	
 	if next_row >= tiles.size():
 		print("Reached end of board")
-		if (current_npc_row == 9):
+		if (current_npc_row == rows-1):
 			npc_finished = true
-		if (current_npc2_row == 9):
+		if (current_npc2_row == rows-1):
 			npc2_finished = true
 		return valid_tiles
 	
@@ -133,14 +151,13 @@ func clear_map():
 
 func _ready():
 
-	var rows = 10
-	var cols = 4
-	var tile_size = 80
+
+	var tile_size = 160
 	var spacing = 0
 	
 	
-	var start_x = 498
-	var start_y = 760
+	var start_x = 510
+	var start_y = 720
 	
 
 	
@@ -193,6 +210,8 @@ func _ready():
 		show_tutorial_message("Welcome to the tutorial. Your goal is to race up the board by clicking a highlighted tile.")
 		tutorial_button.text = "Show Me"
 		tutorial_button.show()
+	create_finish_line()
+	start_countdown()
 
 
 func move_tile(row, col):
@@ -208,6 +227,10 @@ func move_tile(row, col):
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
 	player.position = tiles[current_row][current_col].position
+	if current_row == rows - 1:
+		player.position.y -= 160
+	if current_row == 9 and "YOU" not in finish_order:
+		finish_order.append("YOU")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	if tutorial_mode && tutorial_step == 3:
@@ -358,8 +381,12 @@ func npc_move_to_tile(row, col):
 	
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 	npc.position = tiles[current_npc_row][current_npc_col].position
+	if current_npc_row == rows - 1:
+		npc.position.y -= 160
 	tiles[current_npc_row][current_npc_col].tile_type = TileType.NORMAL
 	tiles[current_npc_row][current_npc_col].update_visual()
+	if current_npc_row == 9 and "NPC 1" not in finish_order:
+		finish_order.append("NPC 1")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 
@@ -372,8 +399,12 @@ func npc2_move_to_tile(row, col):
 	
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
+	if current_npc2_row == rows - 1:
+		npc2.position.y -= 160
 	tiles[current_npc2_row][current_npc2_col].tile_type = TileType.NORMAL
 	tiles[current_npc2_row][current_npc2_col].update_visual()
+	if current_npc2_row == 9 and "NPC 2" not in finish_order:
+		finish_order.append("NPC 2")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
 	
@@ -388,7 +419,7 @@ func npc2_loop():
 		await npc2_start_move()
 
 
-#FUNCTION ADDED FOR LEADERBOARD BY LEO
+#FUNCTION ADDED FOR LEADERBOARD 
 #------------------------------------------
 func update_leaderboard():
 	var standings = [
@@ -396,29 +427,90 @@ func update_leaderboard():
 		{"name": "NPC 1", "row": current_npc_row, "pic": npc_texture},
 		{"name": "NPC 2", "row": current_npc2_row, "pic": npc_texture},
 	]
-	standings.sort_custom(func(a, b): return a["row"] > b["row"])
+	standings.sort_custom(func(a, b):
+		if a["row"] != b["row"]:
+			return a["row"] > b["row"]
+		var a_pos = finish_order.find(a["name"])
+		var b_pos = finish_order.find(b["name"])
+		if a_pos == -1: a_pos = 999
+		if b_pos == -1: b_pos = 999
+		return a_pos < b_pos
+	)
 
 	var n1 = find_child("Name1", true, false)
-	var n2 = find_child("Name2", true, false)
-	var n3 = find_child("Name3", true, false)
-	var p1 = find_child("Pic1", true, false)
-	var p2 = find_child("Pic2", true, false)
-	var p3 = find_child("Pic3", true, false)
-	var r1 = find_child("Rank1", true, false)
-	var r2 = find_child("Rank2", true, false)
-	var r3 = find_child("Rank3", true, false)
-
 	if n1 == null:
 		return
 
-	r1.text = "1st"
-	r2.text = "2nd"
-	r3.text = "3rd"
+	find_child("Rank1", true, false).text = "1st"
+	find_child("Rank2", true, false).text = "2nd"
+	find_child("Rank3", true, false).text = "3rd"
 	n1.text = standings[0]["name"]
-	n2.text = standings[1]["name"]
-	n3.text = standings[2]["name"]
-	p1.texture = standings[0]["pic"]
-	p2.texture = standings[1]["pic"]
-	p3.texture = standings[2]["pic"]
+	find_child("Name2", true, false).text = standings[1]["name"]
+	find_child("Name3", true, false).text = standings[2]["name"]
+	find_child("Pic1", true, false).texture = standings[0]["pic"]
+	find_child("Pic2", true, false).texture = standings[1]["pic"]
+	find_child("Pic3", true, false).texture = standings[2]["pic"]
 
 	#------------------------------------------
+	
+	#Countdown function
+func start_countdown():
+	var countdown_label = find_child("Countdown", true, false)
+	if countdown_label == null:
+		race_started = true
+		return
+
+	var sfx = AudioStreamPlayer.new()
+	add_child(sfx)
+
+	countdown_label.visible = true
+
+	countdown_label.text = "3"
+	sfx.stream = load("res://Assets/3.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "2"
+	sfx.stream = load("res://Assets/2.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "1"
+	sfx.stream = load("res://Assets/1.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "GO!"
+	sfx.stream = load("res://Assets/go.ogg")
+	sfx.play()
+	await get_tree().create_timer(0.5).timeout
+
+	countdown_label.visible = false
+	sfx.queue_free()
+	race_started = true
+	npc_loop()
+	npc2_loop()
+
+#Create Finish Line
+func create_finish_line():
+	var tile_size = 160
+	var last_row_y = tiles[rows - 1][0].position.y
+
+	var line = ColorRect.new()
+	line.color = Color("#e74c3c")
+	line.size = Vector2(cols * tile_size, 150)
+	line.position = Vector2(tiles[0][0].position.x -80, last_row_y -230)
+	add_child(line)
+
+	var label = Label.new()
+	label.text = "FINISH"
+	label.add_theme_font_size_override("font_size", 36)
+	label.add_theme_color_override("font_color", Color("000000ff"))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.position = Vector2(tiles[0][0].position.x - 85, last_row_y - 210)
+	label.size = Vector2(cols * tile_size, 45)
+	
+	line.z_index = -1
+	label.z_index = -1
+	
+	add_child(label)
