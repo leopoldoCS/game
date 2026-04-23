@@ -11,14 +11,23 @@ config_version=5
 [application]
 
 config/name="OfficialGame"
+<<<<<<< HEAD
 run/main_scene="uid://c8qntx3jxs2bb"
+=======
+run/main_scene="res://scenes/main_menu.tscn"
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
+<<<<<<< HEAD
 window/size/viewport_width=1280
 window/size/viewport_height=720
+=======
+window/size/viewport_width=1400
+window/size/viewport_height=800
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 window/stretch/mode="canvas_items"
 
 [input_devices]

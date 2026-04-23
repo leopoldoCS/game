@@ -1,6 +1,12 @@
 extends Node2D
+<<<<<<< HEAD
 #Added by Leo for LEADERBOARD
 #---------------------------------------------------------
+=======
+#Added for LEADERBOARD
+#---------------------------------------------------------
+@export var tutorial_mode := false
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 var player_texture = preload("res://my assets/Monster.png")
 var npc_texture = preload("res://my assets/Monster.png")
 #---------------------------------------------------------
@@ -28,6 +34,12 @@ var cols = 4
 
 var tiles = []
 
+<<<<<<< HEAD
+=======
+#countdown variable
+var race_started = false
+
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 #For Leaderboard Order Finish
 var finish_order = []
 
@@ -43,6 +55,14 @@ enum TileType {
 }
 
 var player_state = PlayerState.CHOOSING
+<<<<<<< HEAD
+=======
+var tutorial_step := 0
+var tutorial_panel: PanelContainer
+var tutorial_label: Label
+var tutorial_button: Button
+var tutorial_finished := false
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 
 var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
@@ -54,8 +74,19 @@ func _process(delta):
 	camera.position.y = lerp(camera.position.y, player.position.y - camera_offset_y, 0.01)
 	
 func _on_tile_clicked(tile):
+<<<<<<< HEAD
 	if player_state != PlayerState.CHOOSING:
 		return
+=======
+	if not race_started:
+		return
+	if player_state != PlayerState.CHOOSING:
+		return
+	if player_state != PlayerState.CHOOSING:
+		return
+	if tutorial_mode && tutorial_step < 1:
+		return
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 
 	selected_tile = tile
 	player_state = PlayerState.ANSWERING
@@ -67,6 +98,11 @@ func _on_tile_clicked(tile):
 	quiz.tile_type = type
 	
 	quiz.answered.connect(_on_quiz_answered)
+<<<<<<< HEAD
+=======
+	if tutorial_mode && tutorial_step == 1:
+		advance_tutorial_step()
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	
 func get_random_question_type():
 	var values = TileType.values()
@@ -74,6 +110,16 @@ func get_random_question_type():
 	return values.pick_random()
 	
 func _on_quiz_answered(was_correct):
+<<<<<<< HEAD
+=======
+	if tutorial_mode && tutorial_step == 2:
+		if was_correct:
+			show_tutorial_message("Nice. A correct answer lets you move onto the tile you picked. Watch your monster move forward.")
+			advance_tutorial_step()
+		else:
+			show_tutorial_message("A wrong answer means you stay put. Click a highlighted tile and try again.")
+			tutorial_button.hide()
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	if was_correct:
 		start_movement_timer()
 	else:
@@ -176,10 +222,22 @@ func _ready():
 	
 	find_tiles(current_row, current_col)
 	
+<<<<<<< HEAD
 	npc_loop()
 	npc2_loop()
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
+=======
+	#ADDED TO CALL LEADERBOARD
+	update_leaderboard()
+	if tutorial_mode:
+		setup_tutorial_ui()
+		show_tutorial_message("Welcome to the tutorial. Your goal is to race up the board by clicking a highlighted tile.")
+		tutorial_button.text = "Show Me"
+		tutorial_button.show()
+	create_finish_line()
+	start_countdown()
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 
 
 func move_tile(row, col):
@@ -195,10 +253,21 @@ func move_tile(row, col):
 	player_state = PlayerState.CHOOSING
 	print(current_row, current_col)
 	player.position = tiles[current_row][current_col].position
+<<<<<<< HEAD
+=======
+	if current_row == rows - 1:
+		player.position.y -= 160
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	if current_row == 9 and "YOU" not in finish_order:
 		finish_order.append("YOU")
 	#ADDED TO CALL LEADERBOARD
 	update_leaderboard()
+<<<<<<< HEAD
+=======
+	if tutorial_mode && tutorial_step == 3:
+		tutorial_button.text = "Next"
+		tutorial_button.show()
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	
 
 	
@@ -222,6 +291,82 @@ func start_wrong_timer():
 	player_state = PlayerState.CHOOSING
 	find_tiles(current_row, current_col)
 
+<<<<<<< HEAD
+=======
+func setup_tutorial_ui():
+	var ui_layer = find_child("UI", true, false)
+	if ui_layer == null:
+		return
+
+	tutorial_panel = PanelContainer.new()
+	tutorial_panel.name = "TutorialPanel"
+	tutorial_panel.custom_minimum_size = Vector2(520, 180)
+	tutorial_panel.position = Vector2(840, 540)
+	tutorial_panel.size = Vector2(520, 180)
+	tutorial_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.06, 0.08, 0.12, 0.94)
+	style.border_color = Color(0.94, 0.77, 0.18, 1.0)
+	style.border_width_left = 3
+	style.border_width_top = 3
+	style.border_width_right = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 18
+	style.corner_radius_top_right = 18
+	style.corner_radius_bottom_left = 18
+	style.corner_radius_bottom_right = 18
+	tutorial_panel.add_theme_stylebox_override("panel", style)
+
+	var container = VBoxContainer.new()
+	container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	container.offset_left = 18
+	container.offset_top = 18
+	container.offset_right = -18
+	container.offset_bottom = -18
+	container.add_theme_constant_override("separation", 12)
+	tutorial_panel.add_child(container)
+
+	tutorial_label = Label.new()
+	tutorial_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tutorial_label.custom_minimum_size = Vector2(0, 110)
+	tutorial_label.add_theme_font_size_override("font_size", 26)
+	container.add_child(tutorial_label)
+
+	tutorial_button = Button.new()
+	tutorial_button.custom_minimum_size = Vector2(0, 46)
+	tutorial_button.text = "Next"
+	tutorial_button.add_theme_font_size_override("font_size", 22)
+	tutorial_button.pressed.connect(_on_tutorial_button_pressed)
+	container.add_child(tutorial_button)
+
+	ui_layer.add_child(tutorial_panel)
+
+func show_tutorial_message(message: String):
+	if tutorial_panel == null:
+		return
+	tutorial_panel.show()
+	tutorial_label.text = message
+
+func _on_tutorial_button_pressed():
+	match tutorial_step:
+		0:
+			show_tutorial_message("Highlighted tiles are your valid moves. Click one of them to open a quiz question.")
+			tutorial_button.hide()
+			advance_tutorial_step()
+		3:
+			show_tutorial_message("NPCs race upward too. In the full game they keep moving, so answer quickly to stay ahead.")
+			tutorial_button.text = "Finish Tutorial"
+			tutorial_button.show()
+			advance_tutorial_step()
+		4:
+			tutorial_finished = true
+			get_tree().change_scene_to_file("res://scenes/map.tscn")
+
+func advance_tutorial_step():
+	tutorial_step += 1
+
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 func npc_choose_move():
 	var valid_moves = get_valid_tiles(current_npc_row, current_npc_col)
 	
@@ -247,18 +392,36 @@ func npc2_choose_move():
 func npc_start_move():
 	if selected_npc_tile == null:
 		return
+<<<<<<< HEAD
 	
 	await get_tree().create_timer(1).timeout
 	npc_move_to_tile(selected_npc_tile.row, selected_npc_tile.col)
+=======
+
+	var move_tile_target = selected_npc_tile
+	await get_tree().create_timer(1).timeout
+	if move_tile_target == null:
+		return
+	npc_move_to_tile(move_tile_target.row, move_tile_target.col)
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	selected_npc_tile = null
 	find_tiles(current_row, current_col)
 
 func npc2_start_move():
 	if selected_npc2_tile == null:
 		return
+<<<<<<< HEAD
 	
 	await get_tree().create_timer(2).timeout
 	npc2_move_to_tile(selected_npc2_tile.row, selected_npc2_tile.col)
+=======
+
+	var move_tile_target = selected_npc2_tile
+	await get_tree().create_timer(2).timeout
+	if move_tile_target == null:
+		return
+	npc2_move_to_tile(move_tile_target.row, move_tile_target.col)
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	selected_npc2_tile = null
 	find_tiles(current_row, current_col)
 
@@ -271,6 +434,11 @@ func npc_move_to_tile(row, col):
 	
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 	npc.position = tiles[current_npc_row][current_npc_col].position
+<<<<<<< HEAD
+=======
+	if current_npc_row == rows - 1:
+		npc.position.y -= 160
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	tiles[current_npc_row][current_npc_col].tile_type = TileType.NORMAL
 	tiles[current_npc_row][current_npc_col].update_visual()
 	if current_npc_row == 9 and "NPC 1" not in finish_order:
@@ -287,6 +455,11 @@ func npc2_move_to_tile(row, col):
 	
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 	npc2.position = tiles[current_npc2_row][current_npc2_col].position
+<<<<<<< HEAD
+=======
+	if current_npc2_row == rows - 1:
+		npc2.position.y -= 160
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 	tiles[current_npc2_row][current_npc2_col].tile_type = TileType.NORMAL
 	tiles[current_npc2_row][current_npc2_col].update_visual()
 	if current_npc2_row == 9 and "NPC 2" not in finish_order:
@@ -305,7 +478,11 @@ func npc2_loop():
 		await npc2_start_move()
 
 
+<<<<<<< HEAD
 #FUNCTION ADDED FOR LEADERBOARD BY LEO
+=======
+#FUNCTION ADDED FOR LEADERBOARD 
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
 #------------------------------------------
 func update_leaderboard():
 	var standings = [
@@ -338,3 +515,68 @@ func update_leaderboard():
 	find_child("Pic3", true, false).texture = standings[2]["pic"]
 
 	#------------------------------------------
+<<<<<<< HEAD
+=======
+	
+	#Countdown function
+func start_countdown():
+	var countdown_label = find_child("Countdown", true, false)
+	if countdown_label == null:
+		race_started = true
+		return
+
+	var sfx = AudioStreamPlayer.new()
+	add_child(sfx)
+
+	countdown_label.visible = true
+
+	countdown_label.text = "3"
+	sfx.stream = load("res://Assets/3.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "2"
+	sfx.stream = load("res://Assets/2.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "1"
+	sfx.stream = load("res://Assets/1.ogg")
+	sfx.play()
+	await get_tree().create_timer(1.0).timeout
+
+	countdown_label.text = "GO!"
+	sfx.stream = load("res://Assets/go.ogg")
+	sfx.play()
+	await get_tree().create_timer(0.5).timeout
+
+	countdown_label.visible = false
+	sfx.queue_free()
+	race_started = true
+	npc_loop()
+	npc2_loop()
+
+#Create Finish Line
+func create_finish_line():
+	var tile_size = 160
+	var last_row_y = tiles[rows - 1][0].position.y
+
+	var line = ColorRect.new()
+	line.color = Color("#e74c3c")
+	line.size = Vector2(cols * tile_size, 150)
+	line.position = Vector2(tiles[0][0].position.x -80, last_row_y -230)
+	add_child(line)
+
+	var label = Label.new()
+	label.text = "FINISH"
+	label.add_theme_font_size_override("font_size", 36)
+	label.add_theme_color_override("font_color", Color("000000ff"))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.position = Vector2(tiles[0][0].position.x - 85, last_row_y - 210)
+	label.size = Vector2(cols * tile_size, 45)
+	
+	line.z_index = -1
+	label.z_index = -1
+	
+	add_child(label)
+>>>>>>> 2fb6c41bb1329b43dfd2e7ddfed28f34885edd51
