@@ -9,4 +9,3 @@ scale = Vector2(1.9999998, 1.9999998)
 scale = Vector2(0.1375, 0.1375)
 texture = ExtResource("1_nh2m4")
 flip_h = true
-

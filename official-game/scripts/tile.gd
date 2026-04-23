@@ -31,11 +31,11 @@ signal tile_clicked(tile)
 func update_visual():
 	match tile_type:
 		TileType.NORMAL:
-			$Sprite2D.texture = normal_texture
+			sprite.texture = normal_texture
 		TileType.FREEZE:
-			$Sprite2D.texture = freeze_texture
+			sprite.texture = freeze_texture
 		TileType.ANSWER_HELP:
-			$Sprite2D.texture = answer_help_texture
+			sprite.texture = answer_help_texture
 
 func _input_event(_viewport, event, _shape_idx):
 	if not selectable:

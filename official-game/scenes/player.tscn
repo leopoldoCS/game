@@ -9,4 +9,3 @@ scale = Vector2(2.000001, 2.000001)
 position = Vector2(1, 1.0000005)
 scale = Vector2(0.1375, 0.1375)
 texture = ExtResource("1_3vyb7")
-

@@ -4,8 +4,8 @@ extends Node2D
 # ---------------------------------------------------------
 @export var tutorial_mode := false
 
-var player_texture = preload("res://my_assets/Monster.png")
-var npc_texture = preload("res://my_assets/Monster.png")
+var player_texture = preload("res://my assets/Monster.png")
+var npc_texture = preload("res://my assets/Monster.png")
 
 # ---------------------------------------------------------
 var TileScene = preload("res://scenes/tile.tscn")

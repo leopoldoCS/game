@@ -43,4 +43,3 @@ func _draw():
 
 			draw_rect(rect, color)
 			draw_rect(rect, Color.BLACK, false, 2.0)
-

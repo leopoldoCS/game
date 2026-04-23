@@ -25,4 +25,3 @@ position = Vector2(6.018531e-36, -6.018531e-36)
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_v1oev")
 metadata/_edit_lock_ = true
-

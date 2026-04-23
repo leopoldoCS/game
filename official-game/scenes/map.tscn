@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dvw37ra4lntb3"]
 
 [ext_resource type="Script" uid="uid://jlcwji87alf1" path="res://scripts/map.gd" id="1_4xfga"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my_assets/Monster.png" id="2_paxxb"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_paxxb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xfga"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
@@ -10,7 +10,6 @@ bg_color = Color(0.2, 0.2, 0.2, 1)
 script = ExtResource("1_4xfga")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1902767470]
-custom_minimum_size = Vector2(180, 180)
 offset_top = -868.0
 offset_right = 1399.0
 offset_bottom = 801.0
@@ -26,10 +25,10 @@ position = Vector2(498, 800)
 [node name="UI" type="CanvasLayer" parent="." unique_id=1987781751]
 
 [node name="Leaderboard" type="PanelContainer" parent="UI" unique_id=1706093794]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(450, 250)
 anchors_preset = -1
-anchor_right = 0.26300246
-anchor_bottom = 0.26700944
+anchor_right = 0.289
+anchor_bottom = 0.2625
 offset_right = 45.399994
 offset_bottom = 40.0
 scale = Vector2(0.9606245, 1.0247719)

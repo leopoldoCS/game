@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8qntx3jxs2bb"]
 
 [ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scenes/mainRoom.gd" id="1_2atx6"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my_assets/Monster.png" id="2_2atx6"]
-[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my_assets/freepik.png" id="2_7smbm"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_2atx6"]
+[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my assets/freepik.png" id="2_7smbm"]
 
 [node name="MainRoom" type="Control" unique_id=1737669556]
 layout_mode = 3
@@ -25,10 +25,10 @@ expand_mode = 1
 
 [node name="monster" type="TextureRect" parent="." unique_id=235898337]
 layout_mode = 0
-offset_left = 596.0
-offset_top = 504.0
-offset_right = 798.0
-offset_bottom = 696.0
+offset_left = 652.0
+offset_top = 587.0
+offset_right = 854.0
+offset_bottom = 779.0
 texture = ExtResource("2_2atx6")
 expand_mode = 1
 
