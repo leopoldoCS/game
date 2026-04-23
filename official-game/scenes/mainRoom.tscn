@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://c8qntx3jxs2bb"]
+
+[ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scenes/mainRoom.gd" id="1_2atx6"]
+[ext_resource type="Texture2D" uid="uid://b75st3hb0yurd" path="res://scenes/freepik.png" id="1_rsjsi"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_2atx6"]
+
+[node name="MainRoom" type="Control" unique_id=1737669556]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2atx6")
+
+[node name="background" type="TextureRect" parent="." unique_id=143215449]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rsjsi")
+expand_mode = 1
+
+[node name="monster" type="TextureRect" parent="." unique_id=235898337]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 504.0
+offset_right = 798.0
+offset_bottom = 696.0
+texture = ExtResource("2_2atx6")
+expand_mode = 1
+
+[node name="LevelPanel" type="Panel" parent="." unique_id=2023973641]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -190.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 65.0
+grow_horizontal = 0
+
+[node name="levelLabel" type="Label" parent="LevelPanel" unique_id=587630627]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_right = -3.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 22
+text = "Level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftButtons" type="VBoxContainer" parent="." unique_id=242498690]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 160.0
+offset_bottom = 289.0
+scale = Vector2(1.5, 1.5)
+
+[node name="startButton" type="Button" parent="LeftButtons" unique_id=953774721]
+layout_mode = 2
+text = "Start Game
+"
+
+[node name="tutorialButton" type="Button" parent="LeftButtons" unique_id=1233422999]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="settingsButton" type="Button" parent="LeftButtons" unique_id=675069379]
+layout_mode = 2
+text = "Settings"
+
+[node name="shopButton" type="Button" parent="LeftButtons" unique_id=843293032]
+layout_mode = 2
+text = "Shop"
+
+[connection signal="pressed" from="LeftButtons/startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="LeftButtons/tutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="LeftButtons/settingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="LeftButtons/shopButton" to="." method="_on_shop_button_pressed"]

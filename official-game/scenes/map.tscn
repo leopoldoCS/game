@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://dvw37ra4lntb3"]
+
+[ext_resource type="Script" uid="uid://jlcwji87alf1" path="res://scripts/map.gd" id="1_4xfga"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_paxxb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xfga"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Node2D" type="Node2D" unique_id=1655107792]
+script = ExtResource("1_4xfga")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1902767470]
+offset_top = -868.0
+offset_right = 1399.0
+offset_bottom = 801.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=422665428]
+position = Vector2(700, 402)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62915529]
+position = Vector2(498, 800)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1987781751]
+
+[node name="Leaderboard" type="PanelContainer" parent="UI" unique_id=1706093794]
+custom_minimum_size = Vector2(450, 250)
+anchors_preset = -1
+anchor_right = 0.289
+anchor_bottom = 0.2625
+offset_right = 45.399994
+offset_bottom = 40.0
+scale = Vector2(0.9606245, 1.0247719)
+theme_override_styles/panel = SubResource("StyleBoxFlat_4xfga")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Leaderboard" unique_id=378349192]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Leaderboard/VBoxContainer" unique_id=799525878]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="UI/Leaderboard/VBoxContainer/HBoxContainer" unique_id=702227682]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "LEADERBOARD"
+horizontal_alignment = 1
+
+[node name="Row1" type="HBoxContainer" parent="UI/Leaderboard/VBoxContainer" unique_id=1397573510]
+layout_mode = 2
+
+[node name="Rank1" type="Label" parent="UI/Leaderboard/VBoxContainer/Row1" unique_id=909152993]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "1st"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row1" unique_id=1166965181]
+layout_mode = 2
+
+[node name="Pic1" type="TextureRect" parent="UI/Leaderboard/VBoxContainer/Row1" unique_id=1834673511]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_paxxb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VSeparator2" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row1" unique_id=126914276]
+layout_mode = 2
+
+[node name="Name1" type="Label" parent="UI/Leaderboard/VBoxContainer/Row1" unique_id=157669063]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "YOU"
+
+[node name="HSeparator2" type="HSeparator" parent="UI/Leaderboard/VBoxContainer" unique_id=417399262]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="UI/Leaderboard/VBoxContainer" unique_id=340954111]
+layout_mode = 2
+
+[node name="Rank2" type="Label" parent="UI/Leaderboard/VBoxContainer/Row2" unique_id=1594223178]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "2nd"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row2" unique_id=1960066046]
+layout_mode = 2
+
+[node name="Pic2" type="TextureRect" parent="UI/Leaderboard/VBoxContainer/Row2" unique_id=787288191]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_paxxb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VSeparator2" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row2" unique_id=1602908091]
+layout_mode = 2
+
+[node name="Name2" type="Label" parent="UI/Leaderboard/VBoxContainer/Row2" unique_id=1491668504]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "NPC 1"
+
+[node name="HSeparator3" type="HSeparator" parent="UI/Leaderboard/VBoxContainer" unique_id=1199088929]
+layout_mode = 2
+
+[node name="Row3" type="HBoxContainer" parent="UI/Leaderboard/VBoxContainer" unique_id=1821003852]
+layout_mode = 2
+
+[node name="Rank3" type="Label" parent="UI/Leaderboard/VBoxContainer/Row3" unique_id=154860711]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "3rd"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row3" unique_id=781901786]
+layout_mode = 2
+
+[node name="Pic3" type="TextureRect" parent="UI/Leaderboard/VBoxContainer/Row3" unique_id=989359683]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_paxxb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VSeparator2" type="VSeparator" parent="UI/Leaderboard/VBoxContainer/Row3" unique_id=983996512]
+layout_mode = 2
+
+[node name="Name3" type="Label" parent="UI/Leaderboard/VBoxContainer/Row3" unique_id=340365427]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "NPC 2"
+
+[node name="HSeparator" type="HSeparator" parent="UI/Leaderboard/VBoxContainer" unique_id=1865914516]
+layout_mode = 2
