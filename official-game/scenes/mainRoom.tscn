@@ -1,0 +1,190 @@
+[gd_scene format=3 uid="uid://c8qntx3jxs2bb"]
+
+[ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scenes/mainRoom.gd" id="1_2atx6"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my_assets/Monster.png" id="2_2atx6"]
+[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my_assets/freepik.png" id="2_7smbm"]
+
+[node name="MainRoom" type="Control" unique_id=1737669556]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2atx6")
+
+[node name="background" type="TextureRect" parent="." unique_id=143215449]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7smbm")
+expand_mode = 1
+
+[node name="monster" type="TextureRect" parent="." unique_id=235898337]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 504.0
+offset_right = 798.0
+offset_bottom = 696.0
+texture = ExtResource("2_2atx6")
+expand_mode = 1
+
+[node name="LevelPanel" type="Panel" parent="." unique_id=1863810959]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelPanel" unique_id=102327383]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1090.0
+offset_top = 20.0
+offset_right = 1200.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+
+[node name="LevelButton" type="Button" parent="LevelPanel/CenterContainer" unique_id=1555927340]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Level 1"
+
+[node name="LevelPopup" type="Panel" parent="." unique_id=2023973641]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_top = 120.0
+offset_right = -80.0
+offset_bottom = 380.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="LevelPopup" unique_id=463757943]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelPopup/PanelContainer" unique_id=386655397]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="LevelTitle" type="Label" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1910557667]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Player Info
+"
+horizontal_alignment = 1
+
+[node name="MonsterImage" type="TextureRect" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=2009092633]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("2_2atx6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LevelValue" type="Label" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1108344590]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Level 1
+"
+horizontal_alignment = 1
+
+[node name="XPValue" type="Label" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=778461090]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "XP:  0 / 100"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1975632294]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CloseLevelButton" type="Button" parent="LevelPopup/PanelContainer/VBoxContainer/CenterContainer" unique_id=538510218]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Close
+"
+
+[node name="LeftButtons" type="VBoxContainer" parent="." unique_id=242498690]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 160.0
+offset_bottom = 289.0
+scale = Vector2(1.5, 1.5)
+
+[node name="startButton" type="Button" parent="LeftButtons" unique_id=953774721]
+layout_mode = 2
+text = "Start Game
+"
+
+[node name="tutorialButton" type="Button" parent="LeftButtons" unique_id=1233422999]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="settingsButton" type="Button" parent="LeftButtons" unique_id=675069379]
+layout_mode = 2
+text = "Settings"
+
+[node name="shopButton" type="Button" parent="LeftButtons" unique_id=843293032]
+layout_mode = 2
+text = "Shop"
+
+[node name="Settingspopup" type="PanelContainer" parent="." unique_id=683048688]
+visible = false
+layout_mode = 0
+offset_left = 562.0
+offset_top = 213.0
+offset_right = 862.0
+offset_bottom = 433.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settingspopup" unique_id=1178500604]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Settings title" type="Label" parent="Settingspopup/VBoxContainer" unique_id=255022268]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings
+"
+horizontal_alignment = 1
+
+[node name="MuteButton" type="Button" parent="Settingspopup/VBoxContainer" unique_id=679430134]
+layout_mode = 2
+text = "Mute
+"
+
+[node name="LogoutButton" type="Button" parent="Settingspopup/VBoxContainer" unique_id=1075755218]
+layout_mode = 2
+text = "Logout"
+
+[node name="closeButton" type="Button" parent="Settingspopup/VBoxContainer" unique_id=48728852]
+layout_mode = 2
+text = "Close
+"
+
+[connection signal="pressed" from="LevelPanel/CenterContainer/LevelButton" to="." method="_on_level_button_pressed"]
+[connection signal="pressed" from="LevelPopup/PanelContainer/VBoxContainer/CenterContainer/CloseLevelButton" to="." method="_on_close_level_button_pressed"]
+[connection signal="pressed" from="LeftButtons/startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="LeftButtons/tutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="LeftButtons/settingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="LeftButtons/shopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="Settingspopup/VBoxContainer/MuteButton" to="." method="_on_mute_button_pressed"]
+[connection signal="pressed" from="Settingspopup/VBoxContainer/LogoutButton" to="." method="_on_logout_button_pressed"]
+[connection signal="pressed" from="Settingspopup/VBoxContainer/closeButton" to="." method="_on_close_button_pressed"]

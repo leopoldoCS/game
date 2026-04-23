@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://dlug4273f686c"]
+
+[ext_resource type="Script" uid="uid://colq1po45ko6" path="res://quiz_popup.gd" id="1_kt6nt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
+bg_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6901961, 0.6901961, 0.6901961, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epypp"]
+bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_0hol4"]
+font_size = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
+bg_color = Color(0.9098039, 0.9098039, 0.9098039, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6901961, 0.6901961, 0.6901961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="QuizPopup" type="CanvasLayer" unique_id=659549768]
+script = ExtResource("1_kt6nt")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=864163516]
+custom_minimum_size = Vector2(420, 260)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1401.0
+offset_top = 274.0
+offset_right = -787.0
+offset_bottom = 561.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0e48y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=940242874]
+layout_mode = 2
+
+[node name="QuestionHeader" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=1057339632]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_epypp")
+
+[node name="QuestionLabel" type="Label" parent="PanelContainer/VBoxContainer/QuestionHeader" unique_id=768487179]
+layout_mode = 2
+text = "Whats is 2 + 2?"
+label_settings = SubResource("LabelSettings_0hol4")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer" unique_id=958776087]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="ButtonA" type="Button" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=688998630]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.000417689, 0.000417689, 0.000417689, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
+
+[node name="ButtonB" type="Button" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1381426203]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.000417689, 0.000417689, 0.000417689, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
+
+[node name="ButtonC" type="Button" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1936934785]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.000417689, 0.000417689, 0.000417689, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
+
+[node name="ButtonD" type="Button" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1257129977]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.000417689, 0.000417689, 0.000417689, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
+
+[node name="FeedbackLabel" type="Label" parent="." unique_id=1233787825]
+offset_left = 48.0
+offset_top = 321.0
+offset_right = 531.5564
+offset_bottom = 504.00342
+scale = Vector2(0.68851185, 0.68851185)
+theme_override_font_sizes/font_size = 80
+text = "BOOST!"
+horizontal_alignment = 1
+vertical_alignment = 1
