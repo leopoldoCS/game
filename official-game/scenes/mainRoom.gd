@@ -6,23 +6,23 @@ var current_xp := 0
 var xp_to_next_level := 100
 
 func _ready() -> void:
+	$LeftButtons/tutorialButton.pressed.connect(_on_tutorial_button_pressed)
 	$LevelPanel/CenterContainer/LevelButton.text = "Level %d" % current_level
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	pass
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/map.tscn")
+	get_tree().change_scene_to_file("res://scenes/tutorial_map.tscn")
 
 func _on_tutorial_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/tutorial_map.tscn")
 
 func _on_settings_button_pressed() -> void:
-	print("Settings pressed")
 	$Settingspopup.visible = true
 
 func _on_shop_button_pressed() -> void:
-	print("Shop clicked")
+	get_tree().change_scene_to_file("res://scenes/shop.tscn")  # ✅ THIS is all you need
 
 func _on_mute_button_pressed() -> void:
 	is_muted = !is_muted
@@ -32,18 +32,12 @@ func _on_mute_button_pressed() -> void:
 		$Settingspopup/VBoxContainer/MuteButton.text = "Unmute"
 	else:
 		$Settingspopup/VBoxContainer/MuteButton.text = "Mute"
-		
-func _on_close_button_pressed() -> void:
-	$Settingspopup.visible = false
 
 func _on_logout_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
-func _on_close_level_button_pressed() -> void:
-	$LevelPopup.visible = false
-
 func _on_level_button_pressed() -> void:
 	$LevelPopup.visible = true
-	$LevelPopup/PanelContainer/VBoxContainer/MonsterImage.texture = preload("res://my assets/Monster.png")
-	$LevelPopup/PanelContainer/VBoxContainer/LevelValue.text = "Level: %d" % current_level
-	$LevelPopup/PanelContainer/VBoxContainer/XPValue.text = "XP: %d / %d" % [current_xp, xp_to_next_level]
+
+func _on_close_level_button_pressed() -> void:
+	$LevelPopup.visible = false

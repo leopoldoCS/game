@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://bwnb2xwrkgo56"]
+
+[ext_resource type="Script" uid="uid://dmvs2rmmngrpx" path="res://scenes/shop.gd" id="1_lx5au"]
+[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my assets/freepik.png" id="2_xfvoa"]
+
+[node name="Shop" type="Control" unique_id=109987863]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lx5au")
+
+[node name="Background" type="TextureRect" parent="." unique_id=496021722]
+custom_minimum_size = Vector2(1400, 800)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xfvoa")
+expand_mode = 1
+
+[node name="TitleLabel" type="Label" parent="." unique_id=790153086]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.5
+offset_right = 71.0
+offset_bottom = 131.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 46
+text = "Shop
+"
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=968754332]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -1.0
+offset_right = -9.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopPanel" type="PanelContainer" parent="CenterContainer" unique_id=1914512986]
+custom_minimum_size = Vector2(420, 260)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/ShopPanel" unique_id=2109537796]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MessageLabel" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=504924396]
+layout_mode = 2
+text = "
+
+Purchased!!"
+horizontal_alignment = 1
+
+[node name="CurrencyLabel" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=36421324]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Coins: 200
+"
+horizontal_alignment = 1
+
+[node name="ItemRow1" type="HBoxContainer" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=928475383]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="ItemName1" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow1" unique_id=712121533]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+text = "Rare"
+vertical_alignment = 1
+
+[node name="ItemCost1" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow1" unique_id=577452156]
+layout_mode = 2
+text = "50 Coins"
+horizontal_alignment = 1
+
+[node name="BuyButton1" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow1" unique_id=1297484705]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+text = "Buy"
+
+[node name="ItemRow2" type="HBoxContainer" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=894331963]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="ItemName2" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow2" unique_id=451625083]
+layout_mode = 2
+text = "Legendary"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemCost2" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow2" unique_id=1146531638]
+layout_mode = 2
+text = "100 Coins"
+
+[node name="BuyButton2" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow2" unique_id=2091005454]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+text = "Buy
+"
+
+[node name="ItemRow3" type="HBoxContainer" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=2020510125]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="ItemName3" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow3" unique_id=169316172]
+layout_mode = 2
+text = "mystic"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemCost3" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow3" unique_id=1462055911]
+layout_mode = 2
+text = "300 Coins"
+
+[node name="BuyButton3" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow3" unique_id=1836690493]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+text = "Buy
+"
+
+[node name="BackButton" type="Button" parent="." unique_id=1566499150]
+layout_mode = 0
+offset_left = 1203.0
+offset_top = 2.0
+offset_right = 1397.0
+offset_bottom = 38.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="CenterContainer/ShopPanel/VBoxContainer/ItemRow1/BuyButton1" to="." method="_on_buy_button_1_pressed"]
+[connection signal="pressed" from="CenterContainer/ShopPanel/VBoxContainer/ItemRow2/BuyButton2" to="." method="_on_buy_button_2_pressed"]
+[connection signal="pressed" from="CenterContainer/ShopPanel/VBoxContainer/ItemRow3/BuyButton3" to="." method="_on_buy_button_3_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
