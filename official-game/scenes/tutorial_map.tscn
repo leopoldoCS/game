@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4awa561p3mx5"]
 
 [ext_resource type="Script" uid="uid://jlcwji87alf1" path="res://scripts/map.gd" id="1_cwaer"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my_assets/Monster.png" id="2_bhxay"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_bhxay"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xfga"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
@@ -159,3 +159,15 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 72
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="backButton" type="Button" parent="UI" unique_id=2062044030]
+offset_left = 1297.0
+offset_top = 2.0
+offset_right = 1397.0
+offset_bottom = 53.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Back
+"
+
+[connection signal="pressed" from="UI/backButton" to="." method="_on_back_button_pressed"]
