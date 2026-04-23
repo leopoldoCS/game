@@ -28,12 +28,7 @@ func _ready():
 	add_child(_http_request)
 	_http_request.request_completed.connect(_on_request_completed)
 	_set_loading_state()
-	var error = _http_request.request(
-	QUIZ_URL,
-	["Content-Type: application/json"],
-	HTTPClient.METHOD_POST,
-	"{}"
-)
+	var error = _http_request.request(QUIZ_URL)
 	if error != OK:
 		_show_load_error("Could not reach local backend.")
 
