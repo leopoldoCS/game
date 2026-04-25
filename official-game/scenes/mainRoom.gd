@@ -2,12 +2,26 @@ extends Control
 
 var is_muted := false
 var current_level := 1
-var current_xp := 0
+var current_xp_percentage := 0.0
 var xp_to_next_level := 100
+var current_coins := 0
+
+@onready var _level_button: Button = $LevelPanel/CenterContainer/LevelButton
+@onready var _level_value: Label = $LevelPopup/PanelContainer/VBoxContainer/LevelValue
+@onready var _xp_value: Label = $LevelPopup/PanelContainer/VBoxContainer/XPValue
+@onready var _xp_bar: ProgressBar = $LevelPopup/PanelContainer/VBoxContainer/XPBar
+@onready var _coins_value: Label = $LevelPopup/PanelContainer/VBoxContainer/CoinsValue
+
+var _backend_client: Node
 
 func _ready() -> void:
 	$LeftButtons/tutorialButton.pressed.connect(_on_tutorial_button_pressed)
-	$LevelPanel/CenterContainer/LevelButton.text = "Level %d" % current_level
+	_backend_client = preload("res://scripts/backend_client.gd").new()
+	add_child(_backend_client)
+	_backend_client.progress_loaded.connect(_on_progress_loaded)
+	_backend_client.request_failed.connect(_on_backend_request_failed)
+	_refresh_player_info()
+	_backend_client.get_progress()
 
 func _process(delta: float) -> void:
 	pass
@@ -41,3 +55,21 @@ func _on_level_button_pressed() -> void:
 
 func _on_close_level_button_pressed() -> void:
 	$LevelPopup.visible = false
+
+func _refresh_player_info() -> void:
+	_level_button.text = "Level %d" % current_level
+	_level_value.text = "Level %d" % current_level
+	_xp_value.text = "Progress: %.1f%%  |  %d XP to next level" % [current_xp_percentage, xp_to_next_level]
+	_xp_bar.value = current_xp_percentage
+	_coins_value.text = "Money: $%d" % current_coins
+
+func _on_progress_loaded(data: Dictionary) -> void:
+	current_level = int(data.get("current_level", 1))
+	current_xp_percentage = float(data.get("xp_progress_percentage", 0.0))
+	xp_to_next_level = int(data.get("xp_to_next_level", 100))
+	current_coins = int(data.get("currency_balance", 0))
+	_refresh_player_info()
+
+func _on_backend_request_failed(message: String) -> void:
+	_xp_value.text = "Backend sync unavailable"
+	_coins_value.text = message

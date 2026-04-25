@@ -65,7 +65,7 @@ horizontal_alignment = 1
 [node name="CurrencyLabel" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer" unique_id=36421324]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Coins: 200
+text = "Money: $0
 "
 horizontal_alignment = 1
 
@@ -83,7 +83,7 @@ vertical_alignment = 1
 
 [node name="ItemCost1" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow1" unique_id=577452156]
 layout_mode = 2
-text = "50 Coins"
+text = "$50"
 horizontal_alignment = 1
 
 [node name="BuyButton1" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow1" unique_id=1297484705]
@@ -105,7 +105,7 @@ vertical_alignment = 1
 
 [node name="ItemCost2" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow2" unique_id=1146531638]
 layout_mode = 2
-text = "100 Coins"
+text = "$100"
 
 [node name="BuyButton2" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow2" unique_id=2091005454]
 custom_minimum_size = Vector2(90, 40)
@@ -127,7 +127,7 @@ vertical_alignment = 1
 
 [node name="ItemCost3" type="Label" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow3" unique_id=1462055911]
 layout_mode = 2
-text = "300 Coins"
+text = "$300"
 
 [node name="BuyButton3" type="Button" parent="CenterContainer/ShopPanel/VBoxContainer/ItemRow3" unique_id=1836690493]
 custom_minimum_size = Vector2(90, 40)

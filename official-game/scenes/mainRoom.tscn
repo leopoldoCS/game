@@ -109,6 +109,19 @@ theme_override_font_sizes/font_size = 18
 text = "XP:  0 / 100"
 horizontal_alignment = 1
 
+[node name="XPBar" type="ProgressBar" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1270011001]
+custom_minimum_size = Vector2(190, 24)
+layout_mode = 2
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="CoinsValue" type="Label" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=97911222]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Money: $0"
+horizontal_alignment = 1
+
 [node name="CenterContainer" type="CenterContainer" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1975632294]
 layout_mode = 2
 size_flags_horizontal = 4

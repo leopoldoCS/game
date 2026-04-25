@@ -56,6 +56,13 @@ var tutorial_panel: PanelContainer
 var tutorial_label: Label
 var tutorial_button: Button
 var tutorial_finished := false
+var reward_popup: PanelContainer
+var reward_title_label: Label
+var reward_body_label: Label
+var reward_progress_bar: ProgressBar
+var reward_button: Button
+var _reward_claimed := false
+var _backend_client: Node
 
 var player = PlayerScene.instantiate()
 var npc = NPCScene.instantiate()
@@ -194,6 +201,11 @@ func _ready():
 	npc2.position = tiles[0][2].position
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 
+	_backend_client = preload("res://scripts/backend_client.gd").new()
+	add_child(_backend_client)
+	_backend_client.game_result_completed.connect(_on_game_result_completed)
+	_backend_client.request_failed.connect(_on_backend_request_failed)
+
 	find_tiles(current_row, current_col)
 
 	# ADDED TO CALL LEADERBOARD
@@ -205,6 +217,7 @@ func _ready():
 		tutorial_button.show()
 
 	create_finish_line()
+	setup_reward_popup()
 	start_countdown()
 
 func move_tile(row, col):
@@ -225,6 +238,7 @@ func move_tile(row, col):
 
 	if current_row == 9 and "YOU" not in finish_order:
 		finish_order.append("YOU")
+		_claim_run_rewards()
 
 	update_leaderboard()
 
@@ -518,3 +532,113 @@ func create_finish_line():
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/mainRoom.tscn")
+
+
+func setup_reward_popup():
+	var ui_layer = find_child("UI", true, false)
+	if ui_layer == null:
+		return
+
+	reward_popup = PanelContainer.new()
+	reward_popup.name = "RewardPopup"
+	reward_popup.visible = false
+	reward_popup.position = Vector2(760, 180)
+	reward_popup.size = Vector2(420, 250)
+	reward_popup.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.07, 0.1, 0.14, 0.96)
+	style.border_color = Color(0.41, 0.69, 0.96, 1.0)
+	style.border_width_left = 3
+	style.border_width_top = 3
+	style.border_width_right = 3
+	style.border_width_bottom = 3
+	style.corner_radius_top_left = 18
+	style.corner_radius_top_right = 18
+	style.corner_radius_bottom_left = 18
+	style.corner_radius_bottom_right = 18
+	reward_popup.add_theme_stylebox_override("panel", style)
+
+	var container = VBoxContainer.new()
+	container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	container.offset_left = 18
+	container.offset_top = 18
+	container.offset_right = -18
+	container.offset_bottom = -18
+	container.add_theme_constant_override("separation", 12)
+	reward_popup.add_child(container)
+
+	reward_title_label = Label.new()
+	reward_title_label.add_theme_font_size_override("font_size", 28)
+	reward_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	reward_title_label.text = "Race Complete"
+	container.add_child(reward_title_label)
+
+	reward_body_label = Label.new()
+	reward_body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	reward_body_label.add_theme_font_size_override("font_size", 20)
+	reward_body_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	container.add_child(reward_body_label)
+
+	reward_progress_bar = ProgressBar.new()
+	reward_progress_bar.custom_minimum_size = Vector2(0, 26)
+	reward_progress_bar.max_value = 100.0
+	reward_progress_bar.show_percentage = false
+	container.add_child(reward_progress_bar)
+
+	reward_button = Button.new()
+	reward_button.custom_minimum_size = Vector2(0, 44)
+	reward_button.text = "Back to Room"
+	reward_button.pressed.connect(_on_reward_close_pressed)
+	container.add_child(reward_button)
+
+	ui_layer.add_child(reward_popup)
+
+
+func _claim_run_rewards():
+	if _reward_claimed:
+		return
+	_reward_claimed = true
+	var placement = finish_order.find("YOU") + 1
+	if placement <= 0:
+		placement = 3
+	_backend_client.complete_run(placement)
+
+
+func _on_game_result_completed(data: Dictionary) -> void:
+	if reward_popup == null:
+		return
+	reward_title_label.text = "Placed %s" % _format_placement(int(data.get("placement", 3)))
+	reward_body_label.text = "+%d XP   +$%d\nLevel %d   |   %d XP to next level" % [
+		int(data.get("xp_awarded", 0)),
+		int(data.get("money_awarded", 0)),
+		int(data.get("current_level", 1)),
+		int(data.get("xp_to_next_level", 0)),
+	]
+	reward_progress_bar.value = float(data.get("xp_progress_percentage", 0.0))
+	reward_popup.visible = true
+
+
+func _on_backend_request_failed(message: String) -> void:
+	if reward_popup == null:
+		return
+	reward_title_label.text = "Race Complete"
+	reward_body_label.text = message
+	reward_progress_bar.value = 0.0
+	reward_popup.visible = true
+
+
+func _on_reward_close_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/mainRoom.tscn")
+
+
+func _format_placement(placement: int) -> String:
+	match placement:
+		1:
+			return "1st"
+		2:
+			return "2nd"
+		3:
+			return "3rd"
+		_:
+			return "%dth" % placement
