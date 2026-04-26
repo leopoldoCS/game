@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bexpsgmfcal0y"]
 
 [ext_resource type="Script" uid="uid://bhq77kcl6itt6" path="res://scripts/npc.gd" id="1_7n8xq"]
-[ext_resource type="Texture2D" path="res://my assets/Monster.png" id="1_nh2m4"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://Assets/Monster.png" id="1_nh2m4"]
 [ext_resource type="Texture2D" uid="uid://fcg6l3on66a1" path="res://Assets/Dog.png" id="3_4wlns"]
 [ext_resource type="Texture2D" uid="uid://unb5v17ead1h" path="res://Assets/Dinosaur.png" id="4_tl2vt"]
 
