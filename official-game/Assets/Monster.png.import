@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6idkenydoek7"
-path="res://.godot/imported/freepik.png-0034d41a0d9a2586ceb6b4b682b869fe.ctex"
+uid="uid://b64iybg46shfi"
+path="res://.godot/imported/Monster.png-25b1974eed735ff3e846c1c7660c4568.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://my assets/freepik.png"
-dest_files=["res://.godot/imported/freepik.png-0034d41a0d9a2586ceb6b4b682b869fe.ctex"]
+source_file="res://Assets/Monster.png"
+dest_files=["res://.godot/imported/Monster.png-25b1974eed735ff3e846c1c7660c4568.ctex"]
 
 [params]
 

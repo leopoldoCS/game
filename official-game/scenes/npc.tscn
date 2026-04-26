@@ -1,11 +1,28 @@
 [gd_scene format=3 uid="uid://bexpsgmfcal0y"]
 
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my_assets/Monster.png" id="1_nh2m4"]
+[ext_resource type="Script" uid="uid://bhq77kcl6itt6" path="res://scripts/npc.gd" id="1_7n8xq"]
+[ext_resource type="Texture2D" path="res://my assets/Monster.png" id="1_nh2m4"]
+[ext_resource type="Texture2D" uid="uid://fcg6l3on66a1" path="res://Assets/Dog.png" id="3_4wlns"]
+[ext_resource type="Texture2D" uid="uid://unb5v17ead1h" path="res://Assets/Dinosaur.png" id="4_tl2vt"]
 
-[node name="player" type="Node2D" unique_id=1051562403]
-scale = Vector2(1.9999998, 1.9999998)
+[node name="npc" type="Node2D" unique_id=1051562403]
+scale = Vector2(2.000001, 2.000001)
+script = ExtResource("1_7n8xq")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=373091131]
+[node name="monster1" type="Sprite2D" parent="." unique_id=373091131]
+visible = false
+position = Vector2(1, 1.0000005)
 scale = Vector2(0.1375, 0.1375)
 texture = ExtResource("1_nh2m4")
-flip_h = true
+
+[node name="monster2" type="Sprite2D" parent="." unique_id=1422030819]
+visible = false
+position = Vector2(0, -0.9999995)
+scale = Vector2(0.03536478, 0.03536478)
+texture = ExtResource("4_tl2vt")
+
+[node name="monster3" type="Sprite2D" parent="." unique_id=479241271]
+visible = false
+position = Vector2(-0.9999994, 0.49999976)
+scale = Vector2(0.03818854, 0.03818854)
+texture = ExtResource("3_4wlns")

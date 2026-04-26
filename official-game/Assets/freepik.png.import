@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpj4qbetanbr8"
-path="res://.godot/imported/Yellow tile.png-db4a06142df89e82a8ff1a1e4c9f6aff.ctex"
+uid="uid://6idkenydoek7"
+path="res://.godot/imported/freepik.png-b31457a7b6c20f399657f8b4555137b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://my assets/Yellow tile.png"
-dest_files=["res://.godot/imported/Yellow tile.png-db4a06142df89e82a8ff1a1e4c9f6aff.ctex"]
+source_file="res://Assets/freepik.png"
+dest_files=["res://.godot/imported/freepik.png-b31457a7b6c20f399657f8b4555137b9.ctex"]
 
 [params]
 

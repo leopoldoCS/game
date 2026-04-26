@@ -54,7 +54,7 @@ func set_selectable(value: bool):
 	if selectable:
 		sprite.modulate = Color(1, 1, 1)
 	else:
-		sprite.modulate = Color(0.6, 0.6, 0.6)
+		sprite.modulate = Color(0.3, 0.3, 0.3)
 
 func set_selected():
 	sprite.modulate = Color(0.0, 1.0, 0.3)

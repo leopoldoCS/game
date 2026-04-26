@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b64iybg46shfi"
-path="res://.godot/imported/Monster.png-1aa66c45230375ca041105463db57c09.ctex"
+uid="uid://bx465na0n1xt6"
+path="res://.godot/imported/Tile.png-d29c0edd8b44896fbe5e0b50e03f0435.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://my assets/Monster.png"
-dest_files=["res://.godot/imported/Monster.png-1aa66c45230375ca041105463db57c09.ctex"]
+source_file="res://Assets/Tile.png"
+dest_files=["res://.godot/imported/Tile.png-d29c0edd8b44896fbe5e0b50e03f0435.ctex"]
 
 [params]
 

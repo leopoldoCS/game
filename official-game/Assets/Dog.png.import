@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jtl0modjh26f"
-path="res://.godot/imported/Blue tile.png-76b6d5be9cd6fede28399a9cf61b3db1.ctex"
+uid="uid://fcg6l3on66a1"
+path="res://.godot/imported/Dog.png-60a429321c0be40b70ec40ccc3cf05ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://my assets/Blue tile.png"
-dest_files=["res://.godot/imported/Blue tile.png-76b6d5be9cd6fede28399a9cf61b3db1.ctex"]
+source_file="res://Assets/Dog.png"
+dest_files=["res://.godot/imported/Dog.png-60a429321c0be40b70ec40ccc3cf05ed.ctex"]
 
 [params]
 

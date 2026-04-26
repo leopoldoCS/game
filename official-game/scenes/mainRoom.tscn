@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8qntx3jxs2bb"]
 
-[ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scenes/mainRoom.gd" id="1_2atx6"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_2atx6"]
-[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my assets/freepik.png" id="2_7smbm"]
+[ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scripts/mainRoom.gd" id="1_2atx6"]
+[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://Assets/Monster.png" id="2_2atx6"]
+[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://Assets/freepik.png" id="2_7smbm"]
 
 [node name="MainRoom" type="Control" unique_id=1737669556]
 layout_mode = 3
@@ -112,8 +112,6 @@ horizontal_alignment = 1
 [node name="XPBar" type="ProgressBar" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=1270011001]
 custom_minimum_size = Vector2(190, 24)
 layout_mode = 2
-max_value = 100.0
-value = 0.0
 show_percentage = false
 
 [node name="CoinsValue" type="Label" parent="LevelPopup/PanelContainer/VBoxContainer" unique_id=97911222]

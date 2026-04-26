@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4awa561p3mx5"]
 
 [ext_resource type="Script" uid="uid://jlcwji87alf1" path="res://scripts/map.gd" id="1_cwaer"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://my assets/Monster.png" id="2_bhxay"]
+[ext_resource type="Texture2D" path="res://my assets/Monster.png" id="2_bhxay"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xfga"]
 bg_color = Color(0.2, 0.2, 0.2, 1)

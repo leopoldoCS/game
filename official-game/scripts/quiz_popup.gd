@@ -9,6 +9,7 @@ enum TileType {
 }
 
 var tile_type
+var test_mode = true
 
 signal answered(was_correct)
 
@@ -52,6 +53,10 @@ func _setup_buttons():
 func _on_request_completed(_result, response_code, _headers, body):
 	if response_code != 200:
 		_show_load_error("Backend returned %s." % response_code)
+		if test_mode == true:
+			_show_load_error("test mode")
+			_on_answer("picked", "picked")
+			return
 		return
 
 	var parsed = JSON.parse_string(body.get_string_from_utf8())

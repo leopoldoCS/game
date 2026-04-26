@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx465na0n1xt6"
-path="res://.godot/imported/Tile.png-0686a90080896cb106103a40eac84208.ctex"
+uid="uid://unb5v17ead1h"
+path="res://.godot/imported/Dinosaur.png-0fb2f65c4042d5c057e9a89890aaf0aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://my assets/Tile.png"
-dest_files=["res://.godot/imported/Tile.png-0686a90080896cb106103a40eac84208.ctex"]
+source_file="res://Assets/Dinosaur.png"
+dest_files=["res://.godot/imported/Dinosaur.png-0fb2f65c4042d5c057e9a89890aaf0aa.ctex"]
 
 [params]
 

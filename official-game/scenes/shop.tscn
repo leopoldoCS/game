@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bwnb2xwrkgo56"]
 
-[ext_resource type="Script" uid="uid://dmvs2rmmngrpx" path="res://scenes/shop.gd" id="1_lx5au"]
-[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://my assets/freepik.png" id="2_xfvoa"]
+[ext_resource type="Script" uid="uid://dmvs2rmmngrpx" path="res://scripts/shop.gd" id="1_lx5au"]
+[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://Assets/freepik.png" id="2_xfvoa"]
 
 [node name="Shop" type="Control" unique_id=109987863]
 layout_mode = 3

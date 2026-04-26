@@ -4,8 +4,8 @@ extends Node2D
 # ---------------------------------------------------------
 @export var tutorial_mode := false
 
-var player_texture = preload("res://my assets/Monster.png")
-var npc_texture = preload("res://my assets/Monster.png")
+var player_texture = preload("res://Assets/Monster.png")
+var npc_texture = preload("res://Assets/Monster.png")
 
 # ---------------------------------------------------------
 var TileScene = preload("res://scenes/tile.tscn")
@@ -86,7 +86,7 @@ func _on_tile_clicked(tile):
 	tile.set_selected()
 	tile.set_tile_state(tile.TileState.RESERVED)
 	var type = tile.tile_type
-	var quiz = preload("res://QuizPopup.tscn").instantiate()
+	var quiz = preload("res://scenes/QuizPopup.tscn").instantiate()
 	add_child(quiz)
 	quiz.tile_type = type
 
@@ -195,10 +195,14 @@ func _ready():
 
 	add_child(npc)
 	npc.position = tiles[0][1].position
+	npc.monster = 2
+	npc.update()
 	tiles[current_npc_row][current_npc_col].set_tile_state(tiles[current_npc_row][current_npc_col].TileState.OCCUPIED)
 
 	add_child(npc2)
 	npc2.position = tiles[0][2].position
+	npc2.monster = 3
+	npc2.update()
 	tiles[current_npc2_row][current_npc2_col].set_tile_state(tiles[current_npc2_row][current_npc2_col].TileState.OCCUPIED)
 
 	_backend_client = preload("res://scripts/backend_client.gd").new()
