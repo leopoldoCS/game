@@ -11,18 +11,18 @@ script = ExtResource("1_7n8xq")
 
 [node name="monster1" type="Sprite2D" parent="." unique_id=373091131]
 visible = false
-position = Vector2(1, 1.0000005)
-scale = Vector2(0.1375, 0.1375)
+position = Vector2(0, 1.4999993)
+scale = Vector2(0.16614492, 0.16614492)
 texture = ExtResource("1_nh2m4")
 
 [node name="monster2" type="Sprite2D" parent="." unique_id=1422030819]
 visible = false
-position = Vector2(0, -0.9999995)
-scale = Vector2(0.03536478, 0.03536478)
+position = Vector2(2.4999988, 0.9999995)
+scale = Vector2(0.04198589, 0.04198589)
 texture = ExtResource("4_tl2vt")
 
 [node name="monster3" type="Sprite2D" parent="." unique_id=479241271]
 visible = false
 position = Vector2(-0.9999994, 0.49999976)
-scale = Vector2(0.03818854, 0.03818854)
+scale = Vector2(0.04398052, 0.04398052)
 texture = ExtResource("3_4wlns")

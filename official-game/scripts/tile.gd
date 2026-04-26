@@ -7,7 +7,8 @@ var tile_type = "Normal"
 enum TileType {
 	NORMAL,
 	FREEZE,
-	ANSWER_HELP
+	ANSWER_HELP,
+	START
 }
 
 enum TileState {
@@ -22,6 +23,7 @@ var selectable = null
 @export var normal_texture: Texture2D
 @export var freeze_texture: Texture2D
 @export var answer_help_texture: Texture2D
+@export var start: Texture2D
 
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionShape2D
@@ -36,6 +38,9 @@ func update_visual():
 			sprite.texture = freeze_texture
 		TileType.ANSWER_HELP:
 			sprite.texture = answer_help_texture
+		TileType.START:
+			sprite.texture = start
+			sprite.modulate = Color(1.0, 1.0, 1.0)
 
 func _input_event(_viewport, event, _shape_idx):
 	if not selectable:
@@ -54,13 +59,20 @@ func set_selectable(value: bool):
 	if selectable:
 		sprite.modulate = Color(1, 1, 1)
 	else:
+		if tile_type == TileType.START:
+			return
 		sprite.modulate = Color(0.3, 0.3, 0.3)
 
-func set_selected():
-	sprite.modulate = Color(0.0, 1.0, 0.3)
+func set_selected(kind):
+	if kind == "player":
+		sprite.modulate = Color(0.0, 1.0, 0.3)
+	elif kind == "npc1":
+		sprite.modulate = Color(0.562, 0.001, 0.682, 1.0)
 
 func set_tile_state(new_state):
 	tile_state = new_state
 
 	if new_state == TileState.OCCUPIED:
+		if tile_type == TileType.START:
+			return
 		sprite.modulate = Color(1.0, 0.0, 0.3)

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dlug4273f686c"]
 
 [ext_resource type="Script" uid="uid://colq1po45ko6" path="res://scripts/quiz_popup.gd" id="1_kt6nt"]
-[ext_resource type="PackedScene" uid="uid://dvw37ra4lntb3" path="res://scenes/map.tscn" id="2_eeprd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
@@ -37,9 +36,6 @@ corner_radius_bottom_left = 10
 
 [node name="QuizPopup" type="CanvasLayer" unique_id=659549768]
 script = ExtResource("1_kt6nt")
-
-[node name="Node2D" parent="." unique_id=1655107792 instance=ExtResource("2_eeprd")]
-position = Vector2(3, -4)
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=864163516]
 custom_minimum_size = Vector2(420, 260)
