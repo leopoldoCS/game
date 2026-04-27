@@ -15,7 +15,6 @@ var current_coins := 0
 var _backend_client: Node
 
 func _ready() -> void:
-	$LeftButtons/tutorialButton.pressed.connect(_on_tutorial_button_pressed)
 	_backend_client = preload("res://scripts/backend_client.gd").new()
 	add_child(_backend_client)
 	_backend_client.progress_loaded.connect(_on_progress_loaded)
@@ -23,7 +22,7 @@ func _ready() -> void:
 	_refresh_player_info()
 	_backend_client.get_progress()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_start_button_pressed() -> void:

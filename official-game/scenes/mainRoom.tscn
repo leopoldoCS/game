@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8qntx3jxs2bb"]
 
-[ext_resource type="Script" uid="uid://bin1xnn0vdicj" path="res://scripts/mainRoom.gd" id="1_2atx6"]
-[ext_resource type="Texture2D" uid="uid://b64iybg46shfi" path="res://Assets/Monster.png" id="2_2atx6"]
-[ext_resource type="Texture2D" uid="uid://6idkenydoek7" path="res://Assets/freepik.png" id="2_7smbm"]
+[ext_resource type="Script" path="res://scripts/mainRoom.gd" id="1_2atx6"]
+[ext_resource type="Texture2D" path="res://Assets/Monster.png" id="2_2atx6"]
+[ext_resource type="Texture2D" path="res://Assets/freepik.png" id="2_7smbm"]
 
 [node name="MainRoom" type="Control" unique_id=1737669556]
 layout_mode = 3

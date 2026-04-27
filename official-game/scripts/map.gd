@@ -71,7 +71,7 @@ var npc2 = NPCScene.instantiate()
 
 @onready var camera = $Camera2D
 
-func _process(delta):
+func _process(_delta):
 	camera.position.y = lerp(camera.position.y, player.position.y - camera_offset_y, 0.01)
 
 func _on_tile_clicked(tile):
@@ -191,7 +191,7 @@ func _ready():
 			add_child(tile)
 			tile.update_visual()
 
-	var start = tiles[0][0]
+	var _start = tiles[0][0]
 	#start.set_tile_state(start.TileState.OCCUPIED)
 
 	add_child(player)

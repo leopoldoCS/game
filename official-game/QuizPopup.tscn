@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dlug4273f686c"]
+[gd_scene format=3 uid="uid://q1yw2my8fhbj"]
 
-[ext_resource type="Script" path="res://scripts/quiz_popup.gd" id="1_kt6nt"]
+[ext_resource type="Script" path="res://quiz_popup.gd" id="1_kt6nt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
@@ -42,12 +42,11 @@ custom_minimum_size = Vector2(420, 260)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -1398.0
-offset_top = 258.0
-offset_right = -784.0
-offset_bottom = 545.0
+offset_left = -1401.0
+offset_top = 274.0
+offset_right = -787.0
+offset_bottom = 561.0
 grow_horizontal = 0
-scale = Vector2(0.6998467, 0.6998467)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0e48y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=940242874]
@@ -107,11 +106,11 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_q6r6c")
 
 [node name="FeedbackLabel" type="Label" parent="." unique_id=1233787825]
-offset_left = 44.999996
-offset_top = 295.0
-offset_right = 528.5564
-offset_bottom = 478.00342
-scale = Vector2(0.70016503, 0.70016503)
+offset_left = 48.0
+offset_top = 321.0
+offset_right = 531.5564
+offset_bottom = 504.00342
+scale = Vector2(0.68851185, 0.68851185)
 theme_override_font_sizes/font_size = 80
 text = "BOOST!"
 horizontal_alignment = 1

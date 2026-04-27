@@ -74,7 +74,7 @@ func get_progress() -> void:
 		request_failed.emit("Could not load player progress")
 
 
-func purchase_item(item_id: String, name: String, slot: String, cost: int) -> void:
+func purchase_item(item_id: String, item_name: String, slot: String, cost: int) -> void:
 	if auth_token == "":
 		request_failed.emit("Missing MAMH_AUTH_TOKEN")
 		return
@@ -86,7 +86,7 @@ func purchase_item(item_id: String, name: String, slot: String, cost: int) -> vo
 	])
 	var body := JSON.stringify({
 		"item_id": item_id,
-		"name": name,
+		"name": item_name,
 		"slot": slot,
 		"cost": cost,
 	})
