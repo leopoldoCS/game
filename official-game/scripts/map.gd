@@ -92,6 +92,7 @@ func _on_tile_clicked(tile):
 	quiz.tile_type = type
 
 	quiz.answered.connect(_on_quiz_answered)
+	quiz.wrong_answer.connect(spin_player)
 	if tutorial_mode and tutorial_step == 1:
 		advance_tutorial_step()
 
@@ -651,3 +652,9 @@ func _format_placement(placement: int) -> String:
 			return "3rd"
 		_:
 			return "%dth" % placement
+
+func spin_player():
+	var tween = create_tween()
+	tween.tween_property(player, "rotation", PI * 2, 0.5)
+	await tween.finished
+	player.rotation = 0

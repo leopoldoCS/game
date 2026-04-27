@@ -12,6 +12,8 @@ var tile_type
 var test_mode = true
 
 signal answered(was_correct)
+signal wrong_answer
+
 
 @onready var vbox = $PanelContainer/VBoxContainer
 @onready var panel = $PanelContainer
@@ -125,6 +127,7 @@ func _on_answer(picked, correct):
 		emit_signal("answered", true)
 		queue_free()
 	else:
+		emit_signal("wrong_answer")
 		vbox.visible = true
 		feedback.visible = false
 		for j in 4:
