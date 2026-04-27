@@ -111,6 +111,8 @@ func _on_quiz_answered(was_correct):
 			tutorial_button.hide()
 
 	if was_correct:
+		if selected_tile.tile_type == TileType.FREEZE:
+			freeze_npcs()
 		start_movement_timer()
 	else:
 		start_wrong_timer()
@@ -432,15 +434,6 @@ func npc2_move_to_tile(row, col):
 
 	update_leaderboard()
 
-func npc_loop():
-	while !npc_finished:
-		npc_choose_move()
-		await npc_start_move()
-
-func npc2_loop():
-	while !npc2_finished:
-		npc2_choose_move()
-		await npc2_start_move()
 
 # FUNCTION ADDED FOR LEADERBOARD
 # ------------------------------------------
@@ -658,3 +651,38 @@ func spin_player():
 	tween.tween_property(player, "rotation", PI * 2, 0.5)
 	await tween.finished
 	player.rotation = 0
+	
+#Freezes Npcs for Special Freeze Tile
+var freeze_duration = 10.0
+var freeze_count = 0
+var npc_loop_running = false
+var npc2_loop_running = false
+
+func freeze_npcs():
+	freeze_count += 1
+	npc_finished = true
+	npc2_finished = true
+	await get_tree().create_timer(freeze_duration).timeout
+	freeze_count -= 1
+	if freeze_count <= 0:
+		freeze_count = 0
+		npc_finished = false
+		npc2_finished = false
+		if not npc_loop_running:
+			npc_loop()
+		if not npc2_loop_running:
+			npc2_loop()
+
+func npc_loop():
+	npc_loop_running = true
+	while !npc_finished:
+		npc_choose_move()
+		await npc_start_move()
+	npc_loop_running = false
+
+func npc2_loop():
+	npc2_loop_running = true
+	while !npc2_finished:
+		npc2_choose_move()
+		await npc2_start_move()
+	npc2_loop_running = false

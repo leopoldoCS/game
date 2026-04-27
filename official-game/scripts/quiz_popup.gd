@@ -73,18 +73,6 @@ func _on_request_completed(_result, response_code, _headers, body):
 
 	_render_question(questions.pick_random())
 
-func _render_question(question: Dictionary):
-	var answers = question.get("answers", [])
-	if answers.size() < 4:
-		_show_load_error("Question is missing answers.")
-		return
-
-	_correct_index = int(question.get("correct_index", -1))
-	question_label.text = str(question.get("prompt", "Question unavailable"))
-	for i in 4:
-		var button = get_button(i)
-		button.text = str(answers[i])
-		button.disabled = false
 
 func _show_load_error(message: String):
 	question_label.text = message
@@ -132,3 +120,28 @@ func _on_answer(picked, correct):
 		feedback.visible = false
 		for j in 4:
 			get_button(j).disabled = false
+
+#Removes Wrong answer for special tile help
+func remove_wrong_answer():
+	var wrong_buttons = []
+	for i in 4:
+		if i != _correct_index:
+			wrong_buttons.append(i)
+	var remove = wrong_buttons.pick_random()
+	get_button(remove).visible = false
+	
+#Renders 3 questions instead of 4
+func _render_question(question: Dictionary):
+	var answers = question.get("answers", [])
+	if answers.size() < 4:
+		_show_load_error("Question is missing answers.")
+		return
+	_correct_index = int(question.get("correct_index", -1))
+	question_label.text = str(question.get("prompt", "Question unavailable"))
+	for i in 4:
+		var button = get_button(i)
+		button.text = str(answers[i])
+		button.disabled = false
+		button.visible = true
+	if tile_type == TileType.ANSWER_HELP:
+		remove_wrong_answer()
